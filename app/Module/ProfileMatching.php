@@ -8,7 +8,8 @@ use App\Models\DataPenilaian;
 use App\Models\KriteriaPenilaian;
 use App\Models\SubkriteriaPenilaian;
 
-class ProfileMatching {
+class ProfileMatching
+{
 
     protected $AspekPenilaian;
     protected $DataKriteria;
@@ -16,7 +17,8 @@ class ProfileMatching {
     protected $DataAlternatif;
     protected $DataPenilaian;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->AspekPenilaian = AspekPenilaian::all();
         $this->DataKriteria = KriteriaPenilaian::all();
         $this->DataSubkriteria = SubkriteriaPenilaian::all();
@@ -24,8 +26,10 @@ class ProfileMatching {
         $this->DataPenilaian = DataPenilaian::all();
     }
 
-    public function Result() {
-        dd('Ini hasil remote Ferdy');
+    public function Result()
+    {
+        // dd('Ini hasil remote Ferdy');
+        dd('Testing Kedua');
         $this->MenghitungNilaiGAP();
     }
 
