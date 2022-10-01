@@ -25,6 +25,7 @@ class ProfileMatching {
     }
 
     public function Result() {
+        dd('Ini hasil remote Ferdy');
         $this->MenghitungNilaiGAP();
     }
 
@@ -44,4 +45,3 @@ class ProfileMatching {
     // Step 4 : Pengelompokkan Core Factor (CF) dan Secondary Factor (SF)
     // Step 5 : Perhitungan Nilai Total (NT) dan Perangkingan
 }
-?>
