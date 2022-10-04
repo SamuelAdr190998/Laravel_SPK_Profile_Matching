@@ -16,12 +16,14 @@ class CreateKriteriaPenilaianTable extends Migration
         Schema::create('kriteria_penilaian', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_aspek_penilaian')->references('id')
-            ->on('aspek_penilaian')
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+                ->on('aspek_penilaian')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->string('kode_kriteria_penilaian');
             $table->string('nama_kriteria_penilaian');
             $table->double('bobot_kriteria_penilaian');
+            $table->enum('status_kriteria_penilaian', ['Faktor Utama', 'Faktor Pendukung']);
+            $table->double('persentase_kriteria_penilaian');
             $table->timestamps();
         });
     }

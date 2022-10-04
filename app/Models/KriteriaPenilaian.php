@@ -11,7 +11,9 @@ class KriteriaPenilaian extends Model
         'id_aspek_penilaian',
         'kode_kriteria_penilaian',
         'nama_kriteria_penilaian',
-        'bobot_kriteria_penilaian'
+        'bobot_kriteria_penilaian',
+        'status_kriteria_penilaian',
+        'persentase_kriteria_penilaian'
     ];
 
     public function aspekpenilaian()
