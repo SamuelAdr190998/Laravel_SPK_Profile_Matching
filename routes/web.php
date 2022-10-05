@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\AspekPenilaianController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DataAlternatifController;
+use App\Http\Controllers\Admin\DataPenilaianController;
+use App\Http\Controllers\Admin\KriteriaPenilaianController;
+use App\Http\Controllers\Admin\PedomanGAPController;
+use App\Http\Controllers\Admin\SubkriteriaPenilaianController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +25,9 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index']);
+Route::resource('aspek-penilaian', AspekPenilaianController::class);
+Route::resource('data-alternatif', DataAlternatifController::class);
+Route::resource('data-penilaian', DataPenilaianController::class);
+Route::resource('kriteria-penilaian', KriteriaPenilaianController::class);
+Route::resource('pedoman-gap', PedomanGAPController::class);
+Route::resource('subkriteria-penilaian', SubkriteriaPenilaianController::class);

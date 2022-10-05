@@ -23,8 +23,13 @@
                 <div class="sb-sidenav-menu-heading text-info">Master Data</div>
                 <a class="nav-link text-info {{ Request::segment(1) == 'aspek-penilaian' ? 'active' : '' }}"
                     href="{{ URL::to('aspek-penilaian') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-info"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list text-info"></i></div>
                     Aspek Penilaian
+                </a>
+                <a class="nav-link text-info {{ Request::segment(1) == 'data-alternatif' ? 'active' : '' }}"
+                    href="{{ URL::to('data-alternatif') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-list text-info"></i></div>
+                    Data Alternatif
                 </a>
                 <a class="nav-link text-info {{ Request::segment(1) == 'kriteria-penilaian' ? 'active' : '' }}"
                     href="{{ URL::to('kriteria-penilaian') }}">
@@ -40,11 +45,6 @@
                     href="{{ URL::to('pedoman-gap') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-info"></i></div>
                     Pedoman GAP
-                </a>
-                <a class="nav-link text-info {{ Request::segment(1) == 'data-alternatif' ? 'active' : '' }}"
-                    href="{{ URL::to('data-alternatif') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-info"></i></div>
-                    Data Alternatif
                 </a>
                 <a class="nav-link text-info {{ Request::segment(1) == 'hasil-penilaian' ? 'active' : '' }}"
                     href="{{ URL::to('hasil-penilaian') }}">
