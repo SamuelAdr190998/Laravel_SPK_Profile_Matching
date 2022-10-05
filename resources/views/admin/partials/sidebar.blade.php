@@ -33,7 +33,7 @@
                 </a>
                 <a class="nav-link text-info {{ Request::segment(1) == 'kriteria-penilaian' ? 'active' : '' }}"
                     href="{{ URL::to('kriteria-penilaian') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-info"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-folder-open text-info"></i></div>
                     Kriteria Penilaian
                 </a>
                 <a class="nav-link text-info {{ Request::segment(1) == 'subkriteria-penilaian' ? 'active' : '' }}"
