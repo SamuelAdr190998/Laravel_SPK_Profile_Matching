@@ -18,46 +18,22 @@ class DataAlternatifSeeder extends Seeder
         DB::table('data_alternatif')->insert([
             [
                 'kode_alternatif' => 'KA1',
-                'nama_alternatif' => 'Suntik KB 1 Bulan',
+                'nama_alternatif' => 'Mr. X',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'kode_alternatif' => 'KA2',
-                'nama_alternatif' => 'Pil KB',
+                'nama_alternatif' => 'Mr. Y',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'kode_alternatif' => 'KA3',
-                'nama_alternatif' => 'Suntik KB 3 Bulan',
+                'nama_alternatif' => 'Mr. Z',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
-            ],
-            [
-                'kode_alternatif' => 'KA4',
-                'nama_alternatif' => 'Spermisida',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'kode_alternatif' => 'KA5',
-                'nama_alternatif' => 'Implan KB',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'kode_alternatif' => 'KA6',
-                'nama_alternatif' => 'IUD/Spiral',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'kode_alternatif' => 'KA7',
-                'nama_alternatif' => 'Tubektomi',
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
+            ]
         ]);
     }
 }

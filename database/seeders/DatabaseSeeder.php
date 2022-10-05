@@ -14,13 +14,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            // UsersSeeder::class,
-            // AspekPenilaianSeeder::class,
-            // KriteriaPenilaianSeeder::class,
-            // SubkriteriaPenilaianSeeder::class,
-            // DataAlternatifSeeder::class,
-            // DataPenilaianSeeder::class,
-            // PedomanGAPSeeder::class
+            UsersSeeder::class,
+            AspekPenilaianSeeder::class,
+            KriteriaPenilaianSeeder::class,
+            SubkriteriaPenilaianSeeder::class,
+            DataAlternatifSeeder::class,
+            DataPenilaianSeeder::class,
+            PedomanGAPSeeder::class
         ]);
     }
 }
