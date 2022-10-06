@@ -55,6 +55,7 @@
             });
         });
     </script>
+    @yield('addOnsJS')
 </body>
 
 </html>

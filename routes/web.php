@@ -29,5 +29,5 @@ Route::resource('aspek-penilaian', AspekPenilaianController::class);
 Route::resource('data-alternatif', DataAlternatifController::class);
 Route::resource('data-penilaian', DataPenilaianController::class);
 Route::resource('kriteria-penilaian', KriteriaPenilaianController::class);
-Route::resource('pedoman-gap', PedomanGAPController::class);
+Route::resource('pedoman-gap', PedomanGAPController::class)->only('index');
 Route::resource('subkriteria-penilaian', SubkriteriaPenilaianController::class);

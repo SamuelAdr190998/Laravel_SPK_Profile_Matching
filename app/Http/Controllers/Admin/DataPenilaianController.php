@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AspekPenilaian;
+use App\Models\DataAlternatif;
 use App\Models\DataPenilaian;
+use App\Models\KriteriaPenilaian;
 use Illuminate\Http\Request;
 
 class DataPenilaianController extends Controller
@@ -15,7 +18,15 @@ class DataPenilaianController extends Controller
      */
     public function index()
     {
-        //
+        $datas = [
+            'titlePage' => 'Data Penilaian',
+            'dataAlternatif' => DataAlternatif::all(),
+            'aspekPenilaian' => AspekPenilaian::all(),
+            'kriteriaPenilaian' => KriteriaPenilaian::all(),
+            'dataPenilaian' => DataPenilaian::all()
+        ];
+
+        return view('admin.pages.data-penilaian.index', $datas);
     }
 
     /**

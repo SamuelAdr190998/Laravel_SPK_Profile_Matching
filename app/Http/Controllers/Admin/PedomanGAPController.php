@@ -15,7 +15,12 @@ class PedomanGAPController extends Controller
      */
     public function index()
     {
-        //
+        $datas = [
+            'titlePage' => 'Pedoman GAP',
+            'pedomangap' => PedomanGAP::all()
+        ];
+
+        return view('admin.pages.pedoman-gap.index', $datas);
     }
 
     /**

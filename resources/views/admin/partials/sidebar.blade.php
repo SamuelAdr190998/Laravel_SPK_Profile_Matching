@@ -38,13 +38,18 @@
                 </a>
                 <a class="nav-link text-info {{ Request::segment(1) == 'subkriteria-penilaian' ? 'active' : '' }}"
                     href="{{ URL::to('subkriteria-penilaian') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-info"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-folder-tree text-info"></i></div>
                     Subkriteria Penilaian
                 </a>
                 <a class="nav-link text-info {{ Request::segment(1) == 'pedoman-gap' ? 'active' : '' }}"
                     href="{{ URL::to('pedoman-gap') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-info"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-book-open text-info"></i></div>
                     Pedoman GAP
+                </a>
+                <a class="nav-link text-info {{ Request::segment(1) == 'data-penilaian' ? 'active' : '' }}"
+                    href="{{ URL::to('data-penilaian') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-info"></i></div>
+                    Data Penilaian
                 </a>
                 <a class="nav-link text-info {{ Request::segment(1) == 'hasil-penilaian' ? 'active' : '' }}"
                     href="{{ URL::to('hasil-penilaian') }}">
