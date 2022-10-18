@@ -19,6 +19,13 @@ class CreateDataAlternatifTable extends Migration
             $table->string('nama_alternatif');
             $table->timestamps();
         });
+
+        Schema::create('data_alternatif_user', function (Blueprint $table) {
+            $table->id();
+            $table->string('kode_alternatif');
+            $table->string('nama_alternatif');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -29,5 +36,6 @@ class CreateDataAlternatifTable extends Migration
     public function down()
     {
         Schema::dropIfExists('data_alternatif');
+        Schema::dropIfExists('data_alternatif_user');
     }
 }

@@ -15,12 +15,6 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li>
-                    <a class="dropdown-item" href="{{ URL::to('profile') }}">
-                        <i class="fas fa-user fa-fw me-1"></i>
-                        Profile
-                    </a>
-                </li>
-                <li>
                     <a class="dropdown-item" href="{{ URL::to('ubah-password') }}">
                         <i class="fas fa-key fa-fw me-1"></i>
                         Ubah Password

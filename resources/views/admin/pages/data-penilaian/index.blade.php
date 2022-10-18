@@ -3,7 +3,7 @@
 @section('content-wrapper')
     <div class="container-fluid px-4">
         <h1 class="mt-4">
-            <i class="fas fa-folder-open me-1"></i>
+            <i class="fa-solid fa-paste me-1"></i>
             Data Penilaian
         </h1>
         <ol class="breadcrumb mb-4">

@@ -17,20 +17,20 @@ class DataAlternatifSeeder extends Seeder
     {
         DB::table('data_alternatif')->insert([
             [
-                'kode_alternatif' => 'KA1',
-                'nama_alternatif' => 'Mr. X',
+                'kode_alternatif' => 'A1',
+                'nama_alternatif' => 'Pil',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
-                'kode_alternatif' => 'KA2',
-                'nama_alternatif' => 'Mr. Y',
+                'kode_alternatif' => 'A2',
+                'nama_alternatif' => 'Suntik',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
-                'kode_alternatif' => 'KA3',
-                'nama_alternatif' => 'Mr. Z',
+                'kode_alternatif' => 'A3',
+                'nama_alternatif' => 'Implan',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]

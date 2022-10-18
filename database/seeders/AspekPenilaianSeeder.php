@@ -18,7 +18,7 @@ class AspekPenilaianSeeder extends Seeder
         DB::table('aspek_penilaian')->insert([
             [
                 'kode_aspek_penilaian' => 'AP1',
-                'nama_aspek_penilaian' => 'Kepribadian',
+                'nama_aspek_penilaian' => 'Umum',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]

@@ -48,19 +48,13 @@
                 </a>
                 <a class="nav-link text-info {{ Request::segment(1) == 'data-penilaian' ? 'active' : '' }}"
                     href="{{ URL::to('data-penilaian') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-info"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fa-solid fa-paste text-info"></i></div>
                     Data Penilaian
                 </a>
                 <a class="nav-link text-info {{ Request::segment(1) == 'hasil-penilaian' ? 'active' : '' }}"
                     href="{{ URL::to('hasil-penilaian') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-info"></i></div>
+                    <div class="sb-nav-link-icon"><i class="fas fa-poll-h text-info"></i></div>
                     Hasil Penilaian
-                </a>
-                <div class="sb-sidenav-menu-heading text-info">Manager Pengguna</div>
-                <a class="nav-link text-info {{ Request::segment(1) == 'data-pengguna' ? 'active' : '' }}"
-                    href="{{ URL::to('data-pengguna') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt text-info"></i></div>
-                    Data Pengguna
                 </a>
             </div>
         </div>

@@ -3,20 +3,43 @@
 @section('content-wrapper')
     <div class="container-fluid px-4">
         <h1 class="mt-4">
-            <i class="fas fa-folder-open me-1"></i>
-            Kriteria Penilaian
+            <i class="fa-solid fa-paste me-1"></i>
+            Data Penilaian
         </h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item active">Kriteria Penilaian</li>
+            <li class="breadcrumb-item active">Data Penilaian</li>
         </ol>
         <div class="card">
             <div class="card-header bg-info text-white fw-bold">
                 <i class="fas fa-plus-circle me-1"></i>
-                Tambah Kriteria Penilaian
+                Tambah Data Penilaian
             </div>
             <div class="card-body">
-                <form action="{{ URL::to('kriteria-penilaian') }}" method="POST">
+                <form action="{{ URL::to('data-penilaian') }}" method="POST">
                     @csrf
+                    <div class="mb-3">
+                        <label for="data_alternatif" class="form-label">Data Alternatif</label>
+                        <select class="form-select @error('data_alternatif') is-invalid @enderror" name="data_alternatif"
+                            id="data_alternatif">
+                            <option disabled selected>Pilih salah satu...</option>
+                            @foreach ($dataAlternatif as $item)
+                                @if (old('data_alternatif') == $item->id)
+                                    <option value="{{ $item->id }}" selected>
+                                        {{ $item->kode_alternatif }} - {{ $item->nama_alternatif }}
+                                    </option>
+                                @else
+                                    <option value="{{ $item->id }}">
+                                        {{ $item->kode_alternatif }} - {{ $item->nama_alternatif }}
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+                        @error('data_alternatif')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                     <div class="mb-3">
                         <label for="aspek_penilaian" class="form-label">Aspek Penilaian</label>
                         <select class="form-select @error('aspek_penilaian') is-invalid @enderror" name="aspek_penilaian"
@@ -41,67 +64,35 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="kode_kriteria_penilaian" class="form-label">Kode Kriteria Penilaian</label>
-                        <input type="text" class="form-control @error('kode_kriteria_penilaian') is-invalid @enderror"
-                            name="kode_kriteria_penilaian" id="kode_kriteria_penilaian"
-                            value="{{ old('kode_kriteria_penilaian') }}">
-                        @error('kode_kriteria_penilaian')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="nama_kriteria_penilaian" class="form-label">Nama Kriteria Penilaian</label>
-                        <input type="text" class="form-control @error('nama_kriteria_penilaian') is-invalid @enderror"
-                            name="nama_kriteria_penilaian" id="nama_kriteria_penilaian"
-                            value="{{ old('nama_kriteria_penilaian') }}">
-                        @error('nama_kriteria_penilaian')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="bobot_kriteria_penilaian" class="form-label">Bobot Kriteria Penilaian</label>
-                        <input type="number" class="form-control @error('bobot_kriteria_penilaian') is-invalid @enderror"
-                            name="bobot_kriteria_penilaian" id="bobot_kriteria_penilaian"
-                            value="{{ old('bobot_kriteria_penilaian') }}">
-                        @error('bobot_kriteria_penilaian')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="status_kriteria_penilaian" class="form-label">Status Kriteria Penilaian</label>
-                        @php
-                            $selectList = ['Faktor Utama', 'Faktor Pendukung'];
-                        @endphp
-                        <select class="form-select @error('status_kriteria_penilaian') is-invalid @enderror"
-                            name="status_kriteria_penilaian" id="status_kriteria_penilaian">
+                        <label for="kriteria_penilaian" class="form-label">Kriteria Penilaian</label>
+                        <select class="form-select @error('kriteria_penilaian') is-invalid @enderror"
+                            name="kriteria_penilaian" id="kriteria_penilaian">
                             <option disabled selected>Pilih salah satu...</option>
-                            @foreach ($selectList as $item)
-                                @if (old('status_kriteria_penilaian') == $item)
-                                    <option value="{{ $item }}" selected>{{ $item }}</option>
+                            @foreach ($kriteriaPenilaian as $item)
+                                @if (old('kriteria_penilaian') == $item->id)
+                                    <option value="{{ $item->id }}" selected>
+                                        {{ $item->kode_kriteria_penilaian }} - {{ $item->nama_kriteria_penilaian }}
+                                    </option>
                                 @else
-                                    <option value="{{ $item }}">{{ $item }}</option>
+                                    <option value="{{ $item->id }}">
+                                        {{ $item->kode_kriteria_penilaian }} - {{ $item->nama_kriteria_penilaian }}
+                                    </option>
                                 @endif
                             @endforeach
                         </select>
-                        @error('status_kriteria_penilaian')
+                        @error('kriteria_penilaian')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
-                    <div class="mb-3">
-                        <label for="persentase_kriteria_penilaian" class="form-label">Persentase Kriteria Penilaian</label>
-                        <input type="number"
-                            class="form-control @error('persentase_kriteria_penilaian') is-invalid @enderror"
-                            name="persentase_kriteria_penilaian" id="persentase_kriteria_penilaian"
-                            value="{{ old('persentase_kriteria_penilaian') }}">
-                        @error('persentase_kriteria_penilaian')
+                    <div class="mb-3 d-none" id="field_subkriteria">
+                        <label for="subkriteria_penilaian" class="form-label">Subkriteria Penilaian</label>
+                        <select class="form-select @error('subkriteria_penilaian') is-invalid @enderror"
+                            name="subkriteria_penilaian" id="subkriteria_penilaian">
+                            <option disabled selected>Pilih salah satu...</option>
+                        </select>
+                        @error('subkriteria_penilaian')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -122,4 +113,54 @@
         </div>
 
     </div>
+@endsection
+
+@section('addOnsJS')
+    <script>
+        $(document).ready(() => {
+            const fetchDataSubKriteria = {!! json_encode($subkriteriaPenilaian) !!};
+            const oldDataSubKriteria = {!! json_encode(old('subkriteria_penilaian')) !!};
+
+            if (oldDataSubKriteria) {
+                var value = $('#kriteria_penilaian').val();
+                fetchDataSubKriteria.forEach(element => {
+                    $('#field_subkriteria').removeClass('d-none');
+                    if (element.id_kriteria_penilaian == value) {
+                        if (element.id == oldDataSubKriteria) {
+                            $('#subkriteria_penilaian').append($('<option>', {
+                                value: element.id,
+                                text: element.kode_subkriteria_penilaian + ' - ' + element
+                                    .nama_subkriteria_penilaian
+                            }));
+                            $(`#subkriteria_penilaian option[value='${oldDataSubKriteria}']`).attr(
+                                "selected", "selected");
+                        } else {
+                            $('#subkriteria_penilaian').append($('<option>', {
+                                value: element.id,
+                                text: element.kode_subkriteria_penilaian + ' - ' + element
+                                    .nama_subkriteria_penilaian
+                            }));
+                        }
+                    }
+                });
+            }
+
+            $('#kriteria_penilaian').on('change', () => {
+                $('#field_subkriteria').removeClass('d-none');
+
+                var value = $('#kriteria_penilaian').val();
+                fetchDataSubKriteria.forEach(element => {
+                    if (element.id_kriteria_penilaian == value) {
+                        $('#subkriteria_penilaian').append($('<option>', {
+                            value: element.id,
+                            text: element.kode_subkriteria_penilaian + ' - ' + element
+                                .nama_subkriteria_penilaian
+                        }));
+                    }
+                });
+
+
+            });
+        });
+    </script>
 @endsection

@@ -11,7 +11,6 @@ use App\Models\SubkriteriaPenilaian;
 
 class ProfileMatching
 {
-
     protected $AspekPenilaian;
     protected $DataKriteria;
     protected $DataSubkriteria;
@@ -19,50 +18,38 @@ class ProfileMatching
     protected $DataPenilaian;
     protected $PemetaanGAPVal;
 
-    public function __construct()
+    public function __construct($Penilaian = null, $Alternatif = null)
     {
         $this->AspekPenilaian = AspekPenilaian::all();
         $this->DataKriteria = KriteriaPenilaian::all();
         $this->DataSubkriteria = SubkriteriaPenilaian::all();
-        $this->DataAlternatif = DataAlternatif::all();
-        $this->DataPenilaian = DataPenilaian::all();
+        $this->DataAlternatif = $Alternatif == null ? DataAlternatif::all() : $Alternatif;
+        $this->DataPenilaian = $Penilaian == null ? DataPenilaian::all() : $Penilaian;
         $this->PemetaanGAPVal = PedomanGAP::all();
     }
 
     public function Result()
     {
-        echo "<pre>";
-        print_r('Perhitungan Nilai GAP');
-        echo "</br>";
-        print_r($this->MenghitungNilaiGAP());
-        echo "</pre>";
+        $hasilAkhirPerhitungan = $this->PerangkinganData();
 
-        echo "</br>";
-        echo "</br>";
+        $displayDataConverter = [];
+        $idx = 0;
+        foreach ($hasilAkhirPerhitungan as $key => $value) {
+            foreach ($this->AspekPenilaian as $a => $b) {
+                foreach ($this->DataAlternatif as $c => $d) {
+                    if ($key == $b->kode_aspek_penilaian) {
+                        $displayDataConverter[$idx] = [
+                            'kode_alternatif' => $d->kode_alternatif,
+                            'nama_alternatif' => $d->nama_alternatif,
+                            'nilai_total' => isset($value[$d->kode_alternatif]) ? $value[$d->kode_alternatif] : 0,
+                        ];
+                        $idx++;
+                    }
+                }
+            }
+        }
 
-        echo "<pre>";
-        print_r('Perhitungan Pemetaan GAP');
-        echo "</br>";
-        print_r($this->PemetaanGAP());
-        echo "</pre>";
-
-        echo "</br>";
-        echo "</br>";
-
-        echo "<pre>";
-        print_r('Perhitungan Pengelompokkan CF dan SF');
-        echo "</br>";
-        print_r($this->PengelompokkanCFdanSF());
-        echo "</pre>";
-
-        echo "</br>";
-        echo "</br>";
-
-        echo "<pre>";
-        print_r('Perhitungan Perangkingan Data');
-        echo "</br>";
-        print_r($this->PerangkinganData());
-        echo "</pre>";
+        return $displayDataConverter;
     }
 
     // Step 1 : Menentukan Aspek Penilaian dan Nilai Bobot Standar Kompetensi
@@ -85,7 +72,7 @@ class ProfileMatching
         foreach ($this->DataPenilaian as $key => $value) {
             foreach ($this->PemetaanGAPVal as $a => $b) {
                 $PerhitunganNilaiGAP[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif][$value->kriteriapenilaian->kode_kriteria_penilaian] = $value->subkriteriapenilaian->bobot_subkriteria_penilaian - $value->kriteriapenilaian->bobot_kriteria_penilaian;
-                if (floatval($PerhitunganNilaiGAP[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif][$value->kriteriapenilaian->kode_kriteria_penilaian]) === $b->ketentuan_selisih) {
+                if (floatval($PerhitunganNilaiGAP[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif][$value->kriteriapenilaian->kode_kriteria_penilaian]) == $b->ketentuan_selisih) {
                     $resultKonversiNilaiGAP[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif][$value->kriteriapenilaian->kode_kriteria_penilaian] = $b->bobot_nilai;
                 }
             }
@@ -109,10 +96,14 @@ class ProfileMatching
         }
 
         foreach ($this->DataPenilaian as $key => $value) {
-            if ($value->kriteriapenilaian->status_kriteria_penilaian === "Faktor Utama") {
-                $hasilPenjumlahan[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['CF'] += $HasilPemetaanGAP[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif][$value->kriteriapenilaian->kode_kriteria_penilaian];
-            } elseif ($value->kriteriapenilaian->status_kriteria_penilaian === "Faktor Pendukung") {
-                $hasilPenjumlahan[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['SF'] += $HasilPemetaanGAP[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif][$value->kriteriapenilaian->kode_kriteria_penilaian];
+            if ($value->kriteriapenilaian->status_kriteria_penilaian == "Faktor Utama") {
+                if (isset($HasilPemetaanGAP[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif][$value->kriteriapenilaian->kode_kriteria_penilaian])) {
+                    $hasilPenjumlahan[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['CF'] += $HasilPemetaanGAP[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif][$value->kriteriapenilaian->kode_kriteria_penilaian];
+                }
+            } elseif ($value->kriteriapenilaian->status_kriteria_penilaian == "Faktor Pendukung") {
+                if (isset($HasilPemetaanGAP[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif][$value->kriteriapenilaian->kode_kriteria_penilaian])) {
+                    $hasilPenjumlahan[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['SF'] += $HasilPemetaanGAP[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif][$value->kriteriapenilaian->kode_kriteria_penilaian];
+                }
             }
             $resultPengelompokkan[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['CF'] = round($hasilPenjumlahan[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['CF'] / $countKelompokCF, 3);
             $resultPengelompokkan[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['SF'] = round($hasilPenjumlahan[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['SF'] / $countKelompokSF, 3);
@@ -125,12 +116,21 @@ class ProfileMatching
     public function PerangkinganData()
     {
         $HasilPengelompokkanCFdanSF = $this->PengelompokkanCFdanSF();
-        $ResultAkhirPerangkinganData = [];
+        $ResultAkhirPerangkinganDataArr = [];
+
         foreach ($this->DataPenilaian as $key => $value) {
-            $ResultAkhirPerangkinganData[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif] = round(((60 / 100) * $HasilPengelompokkanCFdanSF[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['CF']) + ((40 / 100) * $HasilPengelompokkanCFdanSF[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['SF']), 3);
+            if ($value->kriteriapenilaian->status_kriteria_penilaian == "Faktor Utama") {
+                $ResultAkhirPerangkinganDataArr[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['CF'] = round(($value->kriteriapenilaian->persentase_kriteria_penilaian / 100) * $HasilPengelompokkanCFdanSF[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['CF'], 1);
+            } elseif ($value->kriteriapenilaian->status_kriteria_penilaian == "Faktor Pendukung") {
+                $ResultAkhirPerangkinganDataArr[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['SF'] = round(($value->kriteriapenilaian->persentase_kriteria_penilaian / 100) * $HasilPengelompokkanCFdanSF[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['SF'], 1);
+            }
         }
 
-        arsort($ResultAkhirPerangkinganData[$value->aspekpenilaian->kode_aspek_penilaian]);
+        $ResultAkhirPerangkinganData = [];
+        foreach ($this->DataPenilaian as $key => $value) {
+            $ResultAkhirPerangkinganData[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif] = $ResultAkhirPerangkinganDataArr[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['CF'] + $ResultAkhirPerangkinganDataArr[$value->aspekpenilaian->kode_aspek_penilaian][$value->alternatif->kode_alternatif]['SF'];
+            arsort($ResultAkhirPerangkinganData[$value->aspekpenilaian->kode_aspek_penilaian]);
+        }
 
         return $ResultAkhirPerangkinganData;
     }
