@@ -10,7 +10,7 @@ class TentangController extends Controller
     public function index()
     {
         $datas = [
-            'titlePage' => 'Tentang Aplikasi'
+            'titlePage' => 'Tentang'
         ];
 
         return view('guest.pages.tentang', $datas);

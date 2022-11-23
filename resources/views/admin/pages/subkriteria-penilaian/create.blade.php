@@ -15,7 +15,7 @@
                 Tambah Kriteria Penilaian
             </div>
             <div class="card-body">
-                <form action="{{ URL::to('subkriteria-penilaian') }}" method="POST">
+                <form action="{{ URL::to('data-subkriteria') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="kriteria_penilaian" class="form-label">Kriteria Penilaian</label>
@@ -25,11 +25,11 @@
                             @foreach ($kriteriaPenilaian as $item)
                                 @if (old('kriteria_penilaian') == $item->id)
                                     <option value="{{ $item->id }}" selected>
-                                        {{ $item->kode_kriteria_penilaian }} - {{ $item->nama_kriteria_penilaian }}
+                                        {{ $item->kode_kriteria }} - {{ $item->nama_kriteria }}
                                     </option>
                                 @else
                                     <option value="{{ $item->id }}">
-                                        {{ $item->kode_kriteria_penilaian }} - {{ $item->nama_kriteria_penilaian }}
+                                        {{ $item->kode_kriteria }} - {{ $item->nama_kriteria }}
                                     </option>
                                 @endif
                             @endforeach
@@ -57,18 +57,6 @@
                             name="nama_subkriteria_penilaian" id="nama_subkriteria_penilaian"
                             value="{{ old('nama_subkriteria_penilaian') }}">
                         @error('nama_subkriteria_penilaian')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="bobot_subkriteria_penilaian" class="form-label">Bobot Subkriteria Penilaian</label>
-                        <input type="number"
-                            class="form-control @error('bobot_subkriteria_penilaian') is-invalid @enderror"
-                            name="bobot_subkriteria_penilaian" id="bobot_subkriteria_penilaian"
-                            value="{{ old('bobot_subkriteria_penilaian') }}">
-                        @error('bobot_subkriteria_penilaian')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

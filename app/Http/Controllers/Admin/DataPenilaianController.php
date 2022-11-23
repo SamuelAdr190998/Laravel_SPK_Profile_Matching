@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AspekPenilaian;
 use App\Models\DataAlternatif;
+use App\Models\DataKriteria;
 use App\Models\DataPenilaian;
+use App\Models\DataSubKriteria;
 use App\Models\KriteriaPenilaian;
 use App\Models\SubkriteriaPenilaian;
 use Illuminate\Http\Request;
@@ -21,9 +23,6 @@ class DataPenilaianController extends Controller
     {
         $datas = [
             'titlePage' => 'Data Penilaian',
-            'dataAlternatif' => DataAlternatif::all(),
-            'aspekPenilaian' => AspekPenilaian::all(),
-            'kriteriaPenilaian' => KriteriaPenilaian::all(),
             'dataPenilaian' => DataPenilaian::all()
         ];
 
@@ -40,9 +39,8 @@ class DataPenilaianController extends Controller
         $datas = [
             'titlePage' => 'Tambah Data Penilaian',
             'dataAlternatif' => DataAlternatif::all(),
-            'aspekPenilaian' => AspekPenilaian::all(),
-            'kriteriaPenilaian' => KriteriaPenilaian::all(),
-            'subkriteriaPenilaian' => SubkriteriaPenilaian::all()
+            'kriteriaPenilaian' => DataKriteria::all(),
+            'subkriteriaPenilaian' => DataSubKriteria::all()
         ];
 
         return view('admin.pages.data-penilaian.create', $datas);
@@ -59,23 +57,21 @@ class DataPenilaianController extends Controller
         $validateRequest = $request->validate(
             [
                 'data_alternatif' => 'required',
-                'aspek_penilaian' => 'required',
-                'kriteria_penilaian' => 'required',
-                'subkriteria_penilaian' => 'required'
+                'kriteria_penilaian' => 'required|unique:data_penilaian,id_kriteria',
+                'cboSubkriteria' => 'required'
             ],
             [
                 'data_alternatif.required' => 'Field Data Alternatif Wajib Diisi',
-                'aspek_penilaian.required' => 'Field Aspek Penilaian Wajib Diisi',
                 'kriteria_penilaian.required' => 'Field Kriteria Penilaian Wajib Diisi',
-                'subkriteria_penilaian.required' => 'Field Subkriteria Penilaian Wajib Diisi'
+                'kriteria_penilaian.unique' => 'Kriteria Penilaian Telah Ada',
+                'cboSubkriteria.accepted' => 'Field Subkriteria Penilaian Wajib Diisi'
             ]
         );
 
         $NewDataPenilaian = new DataPenilaian();
         $NewDataPenilaian->id_alternatif = $validateRequest['data_alternatif'];
-        $NewDataPenilaian->id_aspek_penilaian = $validateRequest['aspek_penilaian'];
-        $NewDataPenilaian->id_kriteria_penilaian = $validateRequest['kriteria_penilaian'];
-        $NewDataPenilaian->id_subkriteria_penilaian = $validateRequest['subkriteria_penilaian'];
+        $NewDataPenilaian->id_kriteria = $validateRequest['kriteria_penilaian'];
+        $NewDataPenilaian->kode_sub_kriteria_array = json_encode($validateRequest['cboSubkriteria']);
         $NewDataPenilaian->save();
 
         return redirect()->to('data-penilaian')->with('successMessage', 'Berhasil menambahkan data penilaian');
@@ -103,9 +99,8 @@ class DataPenilaianController extends Controller
         $datas = [
             'titlePage' => 'Ubah Data Penilaian',
             'dataAlternatif' => DataAlternatif::all(),
-            'aspekPenilaian' => AspekPenilaian::all(),
-            'kriteriaPenilaian' => KriteriaPenilaian::all(),
-            'subkriteriaPenilaian' => SubkriteriaPenilaian::all(),
+            'kriteriaPenilaian' => DataKriteria::all(),
+            'subkriteriaPenilaian' => DataSubKriteria::all(),
             'dataPenilaian' => $dataPenilaian
         ];
 
@@ -124,22 +119,19 @@ class DataPenilaianController extends Controller
         $validateRequest = $request->validate(
             [
                 'data_alternatif' => 'required',
-                'aspek_penilaian' => 'required',
                 'kriteria_penilaian' => 'required',
-                'subkriteria_penilaian' => 'required'
+                'cboSubkriteria' => 'required'
             ],
             [
                 'data_alternatif.required' => 'Field Data Alternatif Wajib Diisi',
-                'aspek_penilaian.required' => 'Field Aspek Penilaian Wajib Diisi',
                 'kriteria_penilaian.required' => 'Field Kriteria Penilaian Wajib Diisi',
-                'subkriteria_penilaian.required' => 'Field Subkriteria Penilaian Wajib Diisi'
+                'cboSubkriteria.accepted' => 'Field Subkriteria Penilaian Wajib Diisi'
             ]
         );
 
         $dataPenilaian->id_alternatif = $validateRequest['data_alternatif'];
-        $dataPenilaian->id_aspek_penilaian = $validateRequest['aspek_penilaian'];
-        $dataPenilaian->id_kriteria_penilaian = $validateRequest['kriteria_penilaian'];
-        $dataPenilaian->id_subkriteria_penilaian = $validateRequest['subkriteria_penilaian'];
+        $dataPenilaian->id_kriteria = $validateRequest['kriteria_penilaian'];
+        $dataPenilaian->kode_sub_kriteria_array = json_encode($validateRequest['cboSubkriteria']);
         $dataPenilaian->save();
 
         return redirect()->to('data-penilaian')->with('successMessage', 'Berhasil mengubah data penilaian');

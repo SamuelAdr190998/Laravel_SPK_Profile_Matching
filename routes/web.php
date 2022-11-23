@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PedomanGAPController;
 use App\Http\Controllers\Admin\SubkriteriaPenilaianController;
 use App\Http\Controllers\Admin\UbahPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Guest\BantuanController;
 use App\Http\Controllers\Guest\HomeController;
 use App\Http\Controllers\Guest\KonsultasiController;
 use App\Http\Controllers\Guest\TentangController;
@@ -29,23 +30,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['guest'])->group(function () {
+Route::middleware('guest')->group(function () {
     Route::get('/', [HomeController::class, 'index']);
-    Route::get('/konsultasi', [KonsultasiController::class, 'index']);
-    Route::post('/konsultasi', [KonsultasiController::class, 'prosesHitung']);
+    Route::get('/kriteria-kos', [KonsultasiController::class, 'index']);
+    Route::post('/kriteria-kos', [KonsultasiController::class, 'prosesHitung']);
+    Route::get('/kriteria-kos/{id_alternatif}', [KonsultasiController::class, 'showDataHitung']);
     Route::get('/tentang', [TentangController::class, 'index']);
+    Route::get('/bantuan', [BantuanController::class, 'index']);
     Route::get('/login', [LoginController::class, 'indexLogin'])->name('login');
     Route::post('/login', [LoginController::class, 'logicLogin']);
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index']);
-    Route::resource('aspek-penilaian', AspekPenilaianController::class);
     Route::resource('data-alternatif', DataAlternatifController::class);
+    Route::resource('data-kriteria', KriteriaPenilaianController::class);
+    Route::resource('data-subkriteria', SubkriteriaPenilaianController::class);
     Route::resource('data-penilaian', DataPenilaianController::class);
-    Route::resource('kriteria-penilaian', KriteriaPenilaianController::class);
-    Route::resource('pedoman-gap', PedomanGAPController::class)->only('index');
-    Route::resource('subkriteria-penilaian', SubkriteriaPenilaianController::class);
     Route::resource('hasil-penilaian', HasilPenilaianController::class);
     Route::get('ubah-password', [UbahPasswordController::class, 'index']);
     Route::post('ubah-password', [UbahPasswordController::class, 'store']);

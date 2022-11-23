@@ -34,7 +34,12 @@
                         <tr>
                             <th class="text-center align-middle">No.</th>
                             <th class="text-center align-middle">Kode Alternatif</th>
-                            <th class="text-center align-middle">Nama Alternatif</th>
+                            <th class="text-center align-middle">Nama Kos</th>
+                            <th class="text-center align-middle">Link Kos</th>
+                            <th class="text-center align-middle">Pemilik Kos</th>
+                            <th class="text-center align-middle">Jenis Kos</th>
+                            <th class="text-center align-middle">Alamat Kos</th>
+                            <th class="text-center align-middle">Whatsapp Kos</th>
                             <th class="text-center align-middle"></th>
                         </tr>
                     </thead>
@@ -46,7 +51,12 @@
                             <tr>
                                 <td class="text-center align-middle">{{ $i }}</td>
                                 <td class="text-center align-middle">{{ $item->kode_alternatif }}</td>
-                                <td class="text-center align-middle">{{ $item->nama_alternatif }}</td>
+                                <td class="text-center align-middle">{{ $item->nama_kos }}</td>
+                                <td class="text-center align-middle">{{ $item->link_kos }}</td>
+                                <td class="text-center align-middle">{{ $item->pemilik_kos }}</td>
+                                <td class="text-center align-middle">{{ $item->jenis_kos }}</td>
+                                <td class="text-center align-middle">{{ $item->alamat_kos }}</td>
+                                <td class="text-center align-middle">{{ $item->whatsapp_kos }}</td>
                                 <td class="text-center align-middle">
                                     <a href="{{ URL::to('data-alternatif/' . $item->id . '/edit') }}"
                                         class="btn btn-warning text-white">

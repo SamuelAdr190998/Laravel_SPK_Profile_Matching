@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\DataPenilaian;
 
 class HomeController extends Controller
 {
     public function index()
     {
         $datas = [
-            'titlePage' => 'Beranda'
+            'titlePage' => 'Beranda',
+            'dataAlternatif' => DataPenilaian::all()
         ];
 
-        return view('guest.pages.beranda', $datas);
+        return view('guest.pages.home', $datas);
     }
 }

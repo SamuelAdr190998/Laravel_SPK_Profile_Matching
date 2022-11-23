@@ -25,9 +25,13 @@
                         <tr>
                             <th class="text-center align-middle">No.</th>
                             <th class="text-center align-middle">Kode Alternatif</th>
-                            <th class="text-center align-middle">Nama Alternatif</th>
-                            <th class="text-center align-middle">Peringkat</th>
-                            <th class="text-center align-middle">Nilai Total</th>
+                            <th class="text-center align-middle">Nama Kos</th>
+                            <th class="text-center align-middle">Link Kos</th>
+                            <th class="text-center align-middle">Pemilik Kos</th>
+                            <th class="text-center align-middle">Jenis Kos</th>
+                            <th class="text-center align-middle">Alamat Kos</th>
+                            <th class="text-center align-middle">Whatsapp Kos</th>
+                            <th class="text-center align-middle">Nilai Kos</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,18 +41,16 @@
                         @foreach ($hasilPenilaian as $item)
                             <tr>
                                 <td class="text-center align-middle">{{ $i }}</td>
-                                <td class="text-center align-middle">
-                                    {{ $item['kode_alternatif'] }}
+                                <td class="text-center align-middle">{{ $item['kode_alternatif'] }}</td>
+                                <td class="text-center align-middle">{{ $item['nama_kos'] }}</td>
+                                <td class="text-center align-middle">{{ $item['link_kos'] }}</td>
+                                <td class="text-center align-middle">{{ $item['pemilik_kos'] }}</td>
+                                <td class="text-center align-middle">{{ $item['jenis_kos'] }}</td>
+                                <td class="text-center align-middle" style="text-align: justify;">
+                                    {{ $item['alamat_kos'] }}
                                 </td>
-                                <td class="text-center align-middle">
-                                    {{ $item['nama_alternatif'] }}
-                                </td>
-                                <td class="text-center align-middle">
-                                    {{ $item['ranking'] }}
-                                </td>
-                                <td class="text-center align-middle">
-                                    {{ $item['nilai_total'] }}
-                                </td>
+                                <td class="text-center align-middle">{{ $item['whatsapp_kos'] }}</td>
+                                <td class="text-center align-middle">{{ $item['nilai_kos'] }}</td>
                             </tr>
                             @php
                                 $i++;

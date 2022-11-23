@@ -21,30 +21,20 @@
                     Dashboard
                 </a>
                 <div class="sb-sidenav-menu-heading text-info">Master Data</div>
-                <a class="nav-link text-info {{ Request::segment(1) == 'aspek-penilaian' ? 'active' : '' }}"
-                    href="{{ URL::to('aspek-penilaian') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-clipboard-list text-info"></i></div>
-                    Aspek Penilaian
-                </a>
                 <a class="nav-link text-info {{ Request::segment(1) == 'data-alternatif' ? 'active' : '' }}"
                     href="{{ URL::to('data-alternatif') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-list text-info"></i></div>
                     Data Alternatif
                 </a>
-                <a class="nav-link text-info {{ Request::segment(1) == 'kriteria-penilaian' ? 'active' : '' }}"
-                    href="{{ URL::to('kriteria-penilaian') }}">
+                <a class="nav-link text-info {{ Request::segment(1) == 'data-kriteria' ? 'active' : '' }}"
+                    href="{{ URL::to('data-kriteria') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-folder-open text-info"></i></div>
                     Kriteria Penilaian
                 </a>
-                <a class="nav-link text-info {{ Request::segment(1) == 'subkriteria-penilaian' ? 'active' : '' }}"
-                    href="{{ URL::to('subkriteria-penilaian') }}">
+                <a class="nav-link text-info {{ Request::segment(1) == 'data-subkriteria' ? 'active' : '' }}"
+                    href="{{ URL::to('data-subkriteria') }}">
                     <div class="sb-nav-link-icon"><i class="fa-solid fa-folder-tree text-info"></i></div>
                     Subkriteria Penilaian
-                </a>
-                <a class="nav-link text-info {{ Request::segment(1) == 'pedoman-gap' ? 'active' : '' }}"
-                    href="{{ URL::to('pedoman-gap') }}">
-                    <div class="sb-nav-link-icon"><i class="fa-solid fa-book-open text-info"></i></div>
-                    Pedoman GAP
                 </a>
                 <a class="nav-link text-info {{ Request::segment(1) == 'data-penilaian' ? 'active' : '' }}"
                     href="{{ URL::to('data-penilaian') }}">

@@ -28,10 +28,60 @@
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="nama_alternatif" class="form-label">Nama Alternatif</label>
-                        <input type="text" class="form-control @error('nama_alternatif') is-invalid @enderror"
-                            name="nama_alternatif" id="nama_alternatif" value="{{ old('nama_alternatif') }}">
-                        @error('nama_alternatif')
+                        <label for="nama_kos" class="form-label">Nama Kos</label>
+                        <input type="text" class="form-control @error('nama_kos') is-invalid @enderror" name="nama_kos"
+                            id="nama_kos" value="{{ old('nama_kos') }}">
+                        @error('nama_kos')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="link_kos" class="form-label">Link Kos</label>
+                        <input type="text" class="form-control @error('link_kos') is-invalid @enderror" name="link_kos"
+                            id="link_kos" value="{{ old('link_kos') }}">
+                        @error('link_kos')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="pemilik_kos" class="form-label">Pemilik Kos</label>
+                        <input type="text" class="form-control @error('pemilik_kos') is-invalid @enderror"
+                            name="pemilik_kos" id="pemilik_kos" value="{{ old('pemilik_kos') }}">
+                        @error('pemilik_kos')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="jenis_kos" class="form-label">Jenis Kos</label>
+                        <input type="text" class="form-control @error('jenis_kos') is-invalid @enderror" name="jenis_kos"
+                            id="jenis_kos" value="{{ old('jenis_kos') }}">
+                        @error('jenis_kos')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="alamat_kos" class="form-label">Alamat Kos</label>
+                        <input type="text" class="form-control @error('alamat_kos') is-invalid @enderror"
+                            name="alamat_kos" id="alamat_kos" value="{{ old('alamat_kos') }}">
+                        @error('alamat_kos')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="whatsapp_kos" class="form-label">Whatsapp Kos</label>
+                        <input type="text" class="form-control @error('whatsapp_kos') is-invalid @enderror"
+                            name="whatsapp_kos" id="whatsapp_kos" value="{{ old('whatsapp_kos') }}">
+                        @error('whatsapp_kos')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

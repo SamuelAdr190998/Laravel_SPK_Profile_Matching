@@ -1,9 +1,9 @@
 @extends('guest.layouts.main')
 
 @section('content-wrapper')
-    <div class="card-body container d-flex justify-content-center align-items-center">
-        <div>
-            <h3 class="fw-bold text-white mb-3 text-center">LOGIN</h3>
+    <div class="card-body bg-white" id="card-body-wrapper">
+        <h2 class="text-center fw-bold mb-5 mt-3">LOGIN</h2>
+        <div class="container py-5 d-flex align-items-center justify-content-center">
             <div class="card" style="width: 25em;">
                 <div class="card-body">
                     <form action="{{ URL::to('login') }}" method="POST">

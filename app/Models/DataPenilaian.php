@@ -9,9 +9,8 @@ class DataPenilaian extends Model
     protected $table = 'data_penilaian';
     protected $fillable = [
         'id_alternatif',
-        'id_aspek_penilaian',
-        'id_kriteria_penilaian',
-        'id_subkriteria_penilaian'
+        'id_kriteria',
+        'kode_sub_kriteria_array'
     ];
 
     public function alternatif()
@@ -19,18 +18,13 @@ class DataPenilaian extends Model
         return $this->hasOne(DataAlternatif::class, 'id', 'id_alternatif');
     }
 
-    public function aspekpenilaian()
+    public function kriteria()
     {
-        return $this->hasOne(AspekPenilaian::class, 'id', 'id_aspek_penilaian');
+        return $this->hasOne(DataKriteria::class, 'id', 'id_kriteria');
     }
 
-    public function kriteriapenilaian()
+    public function searchByKodeSubKriteria($kode_subkriteria)
     {
-        return $this->hasOne(KriteriaPenilaian::class, 'id', 'id_kriteria_penilaian');
-    }
-
-    public function subkriteriapenilaian()
-    {
-        return $this->hasOne(SubkriteriaPenilaian::class, 'id', 'id_subkriteria_penilaian');
+        return DataSubKriteria::where('kode_sub_kriteria', $kode_subkriteria)->first();
     }
 }

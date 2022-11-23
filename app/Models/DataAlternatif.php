@@ -9,6 +9,11 @@ class DataAlternatif extends Model
     protected $table = 'data_alternatif';
     protected $fillable = [
         'kode_alternatif',
-        'nama_alternatif'
+        'nama_kos',
+        'link_kos',
+        'pemilik_kos',
+        'jenis_kos',
+        'alamat_kos',
+        'whatsapp_kos'
     ];
 }

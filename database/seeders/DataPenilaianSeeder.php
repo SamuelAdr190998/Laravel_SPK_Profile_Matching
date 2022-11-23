@@ -18,121 +18,142 @@ class DataPenilaianSeeder extends Seeder
         DB::table('data_penilaian')->insert([
             [
                 'id_alternatif' => 1,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 1,
-                'id_subkriteria_penilaian' => 1,
+                'id_kriteria' => 1,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB1',
+                    'SB2',
+                    'SB3',
+                    'SB4'
+                ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'id_alternatif' => 1,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 2,
-                'id_subkriteria_penilaian' => 4,
+                'id_kriteria' => 2,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB6',
+                    'SB7',
+                    'SB8',
+                    'SB9',
+                    'SB10'
+                ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'id_alternatif' => 1,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 3,
-                'id_subkriteria_penilaian' => 7,
+                'id_kriteria' => 3,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB17',
+                    'SB18',
+                    'SB20'
+                ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'id_alternatif' => 1,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 4,
-                'id_subkriteria_penilaian' => 9,
+                'id_kriteria' => 4,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB22',
+                    'SB23',
+                    'SB24',
+                    'SB25'
+                ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'id_alternatif' => 1,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 5,
-                'id_subkriteria_penilaian' => 12,
+                'id_kriteria' => 5,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB26',
+                    'SB27',
+                    'SB28',
+                    'SB29'
+                ]),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'id_alternatif' => 1,
+                'id_kriteria' => 6,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB31',
+                    'SB32',
+                    'SB33'
+                ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'id_alternatif' => 2,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 1,
-                'id_subkriteria_penilaian' => 2,
+                'id_kriteria' => 1,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB1',
+                    'SB2',
+                    'SB3'
+                ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'id_alternatif' => 2,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 2,
-                'id_subkriteria_penilaian' => 5,
+                'id_kriteria' => 2,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB6',
+                    'SB7',
+                    'SB8',
+                    'SB9'
+                ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'id_alternatif' => 2,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 3,
-                'id_subkriteria_penilaian' => 7,
+                'id_kriteria' => 3,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB15',
+                    'SB16',
+                    'SB17',
+                    'SB18',
+                    'SB19'
+                ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'id_alternatif' => 2,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 4,
-                'id_subkriteria_penilaian' => 10,
+                'id_kriteria' => 4,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB22',
+                    'SB23',
+                    'SB24',
+                    'SB25'
+                ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
                 'id_alternatif' => 2,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 5,
-                'id_subkriteria_penilaian' => 13,
+                'id_kriteria' => 5,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB26',
+                    'SB27',
+                    'SB28'
+                ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],
             [
-                'id_alternatif' => 3,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 1,
-                'id_subkriteria_penilaian' => 2,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_alternatif' => 3,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 2,
-                'id_subkriteria_penilaian' => 6,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_alternatif' => 3,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 3,
-                'id_subkriteria_penilaian' => 7,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_alternatif' => 3,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 4,
-                'id_subkriteria_penilaian' => 11,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ],
-            [
-                'id_alternatif' => 3,
-                'id_aspek_penilaian' => 1,
-                'id_kriteria_penilaian' => 5,
-                'id_subkriteria_penilaian' => 13,
+                'id_alternatif' => 2,
+                'id_kriteria' => 6,
+                'kode_sub_kriteria_array' => json_encode([
+                    'SB31',
+                    'SB32',
+                    'SB33'
+                ]),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ],

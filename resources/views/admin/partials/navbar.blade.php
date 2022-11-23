@@ -1,6 +1,6 @@
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-info">
     <!-- Navbar Brand-->
-    <a class="navbar-brand ps-3 fw-bold" href="{{ URL::to('dashboard') }}">SPK Profile Matching</a>
+    <a class="navbar-brand ps-3 fw-bold" href="{{ URL::to('dashboard') }}">SPK Maut</a>
     <!-- Sidebar Toggle-->
     <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
             class="fas fa-bars"></i></button>
@@ -10,7 +10,6 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle fw-bold" id="navbarDropdown" href="#" role="button"
                 data-bs-toggle="dropdown" aria-expanded="false">
-                {{-- <i class="fas fa-user fa-fw me-1"></i> --}}
                 Administrator
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

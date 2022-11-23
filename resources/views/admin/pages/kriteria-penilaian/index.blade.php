@@ -25,7 +25,7 @@
                         {{ session('successMessage') }}
                     </div>
                 @endif
-                <a href="{{ URL::to('kriteria-penilaian/create') }}" class="btn btn-info text-white fw-bold mb-3">
+                <a href="{{ URL::to('data-kriteria/create') }}" class="btn btn-info text-white fw-bold mb-3">
                     <i class="fas fa-plus-circle me-1"></i>
                     Tambah Data
                 </a>
@@ -33,12 +33,9 @@
                     <thead class="bg-info text-white">
                         <tr>
                             <th class="text-center align-middle">No.</th>
-                            <th class="text-center align-middle">Aspek Penilaian</th>
                             <th class="text-center align-middle">Kode Kriteria Penilaian</th>
                             <th class="text-center align-middle">Nama Kriteria Penilaian</th>
                             <th class="text-center align-middle">Bobot Kriteria Penilaian</th>
-                            <th class="text-center align-middle">Status Kriteria Penilaian</th>
-                            <th class="text-center align-middle">Persentase Kriteria Penilaian</th>
                             <th class="text-center align-middle"></th>
                         </tr>
                     </thead>
@@ -49,19 +46,16 @@
                         @foreach ($kriteriaPenilaian as $item)
                             <tr>
                                 <td class="text-center align-middle">{{ $i }}</td>
-                                <td class="text-center align-middle">{{ $item->aspekpenilaian->nama_aspek_penilaian }}</td>
-                                <td class="text-center align-middle">{{ $item->kode_kriteria_penilaian }}</td>
-                                <td class="text-center align-middle">{{ $item->nama_kriteria_penilaian }}</td>
-                                <td class="text-center align-middle">{{ $item->bobot_kriteria_penilaian }}</td>
-                                <td class="text-center align-middle">{{ $item->status_kriteria_penilaian }}</td>
-                                <td class="text-center align-middle">{{ $item->persentase_kriteria_penilaian }}</td>
+                                <td class="text-center align-middle">{{ $item->kode_kriteria }}</td>
+                                <td class="text-center align-middle">{{ $item->nama_kriteria }}</td>
+                                <td class="text-center align-middle">{{ $item->bobot_kriteria }}</td>
                                 <td class="text-center align-middle">
-                                    <a href="{{ URL::to('kriteria-penilaian/' . $item->id . '/edit') }}"
+                                    <a href="{{ URL::to('data-kriteria/' . $item->id . '/edit') }}"
                                         class="btn btn-warning text-white">
                                         <i class="fas fa-edit me-1"></i>
                                         Ubah Data
                                     </a>
-                                    <form action="{{ URL::to('kriteria-penilaian/' . $item->id) }}" method="POST"
+                                    <form action="{{ URL::to('data-kriteria/' . $item->id) }}" method="POST"
                                         class="d-inline">
                                         @csrf
                                         @method('DELETE')

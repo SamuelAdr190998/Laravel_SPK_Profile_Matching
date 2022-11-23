@@ -1,0 +1,4 @@
+.navbar-nav .nav-link.active,
+.navbar-nav .show>.nav-link {
+    border-bottom: 1.5px solid #fff;
+}
