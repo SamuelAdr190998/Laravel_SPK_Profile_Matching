@@ -57,7 +57,7 @@ class DataPenilaianController extends Controller
         $validateRequest = $request->validate(
             [
                 'data_alternatif' => 'required',
-                'kriteria_penilaian' => 'required|unique:data_penilaian,id_kriteria',
+                'kriteria_penilaian' => 'required',
                 'cboSubkriteria' => 'required'
             ],
             [
