@@ -32,60 +32,67 @@ class KonsultasiController extends Controller
 
     public function prosesHitung(Request $request)
     {
-        $rules = [
-            'nama_lengkap' => 'required',
-            'jenis_kos' => 'required',
-            'checkbox-user' => 'required'
-        ];
+        $DetailData = [];
 
-        $message = [
-            'nama_lengkap.required' => 'Field Nama Lengkap Wajib Diisi',
-            'jenis_kos.required' => 'Field Jenis Kos Wajib Diisi',
-            'checkbox-user.required' => 'Setiap Field Pilihan Kategori Wajib Diisi',
-        ];
+        try {
+            $rules = [
+                'nama_lengkap' => 'required',
+                'jenis_kos' => 'required',
+                'checkbox-user' => 'required'
+            ];
 
-        $KriteriaPenilaian = DataKriteria::all();
-        foreach ($KriteriaPenilaian as $key => $value) {
-            $rules['checkbox-user.' . $value->kode_kriteria] = 'required';
-        }
+            $message = [
+                'nama_lengkap.required' => 'Field Nama Lengkap Wajib Diisi',
+                'jenis_kos.required' => 'Field Jenis Kos Wajib Diisi',
+                'checkbox-user.required' => 'Setiap Field Pilihan Kategori Wajib Diisi',
+            ];
 
-        $validateRequest = $request->validate($rules, $message);
-
-        $ValidationDataUser = $validateRequest['checkbox-user'];
-        $DataUser = [];
-        foreach (DataKriteria::all() as $key => $value) {
-            $DataUser[$value->kode_kriteria] = count($ValidationDataUser[$value->kode_kriteria]);
-        }
-
-        $GetDataPenilaian = DataPenilaian::all();
-        $DataPenilaianArr = [];
-        foreach ($GetDataPenilaian as $key => $value) {
-            $DataPenilaianArr[$value->alternatif->kode_alternatif][$value->kriteria->kode_kriteria] = count(json_decode($value->kode_sub_kriteria_array));
-        }
-
-        $newIndex = count($DataPenilaianArr);
-        $HasilAkhirUser = $this->HasilPreferensi($DataUser)['U' . $newIndex + 1];
-
-        $HasilRekomendasiAwal = [];
-        $SPKMautFormula = new SPKMautAlgorithms();
-
-        foreach ($SPKMautFormula->GenerateDataPenilaian() as $key => $value) {
-            if ($value > $HasilAkhirUser) {
-                $HasilRekomendasiAwal[] = $key;
+            $KriteriaPenilaian = DataKriteria::all();
+            foreach ($KriteriaPenilaian as $key => $value) {
+                $rules['checkbox-user.' . $value->kode_kriteria] = 'required';
             }
-        }
 
-        foreach ($HasilRekomendasiAwal as $key => $value) {
-            if (DataAlternatif::where([
-                'kode_alternatif' => $value,
-                'jenis_kos' => $validateRequest['jenis_kos']
-            ])->first() != null) {
-                $DetailData[] = DataAlternatif::where([
+            $validateRequest = $request->validate($rules, $message);
+
+            $ValidationDataUser = $validateRequest['checkbox-user'];
+            $DataUser = [];
+            foreach (DataKriteria::all() as $key => $value) {
+                $DataUser[$value->kode_kriteria] = count($ValidationDataUser[$value->kode_kriteria]);
+            }
+
+            $GetDataPenilaian = DataPenilaian::all();
+            $DataPenilaianArr = [];
+            foreach ($GetDataPenilaian as $key => $value) {
+                $DataPenilaianArr[$value->alternatif->kode_alternatif][$value->kriteria->kode_kriteria] = count(json_decode($value->kode_sub_kriteria_array));
+            }
+
+            $newIndex = count($DataPenilaianArr);
+            $HasilAkhirUser = $this->HasilPreferensi($DataUser)['U' . $newIndex + 1];
+
+            $HasilRekomendasiAwal = [];
+            $SPKMautFormula = new SPKMautAlgorithms();
+
+            foreach ($SPKMautFormula->GenerateDataPenilaian() as $key => $value) {
+                if ($value > $HasilAkhirUser) {
+                    $HasilRekomendasiAwal[] = $key;
+                }
+            }
+
+            foreach ($HasilRekomendasiAwal as $key => $value) {
+                if (DataAlternatif::where([
                     'kode_alternatif' => $value,
                     'jenis_kos' => $validateRequest['jenis_kos']
-                ])->first()->toArray();
+                ])->first() != null) {
+                    $DetailData[] = DataAlternatif::where([
+                        'kode_alternatif' => $value,
+                        'jenis_kos' => $validateRequest['jenis_kos']
+                    ])->first()->toArray();
+                }
             }
+        } catch (\Throwable $th) {
+            $DetailData = [];
         }
+
 
         $datas = [
             'titlePage' => 'Hasil Rekomendasi',
