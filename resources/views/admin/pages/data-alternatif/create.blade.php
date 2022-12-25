@@ -15,7 +15,7 @@
                 Tambah Data Alternatif
             </div>
             <div class="card-body">
-                <form action="{{ URL::to('data-alternatif') }}" method="POST">
+                <form action="{{ URL::to('data-alternatif') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="kode_alternatif" class="form-label">Kode Alternatif</label>
@@ -32,16 +32,6 @@
                         <input type="text" class="form-control @error('nama_kos') is-invalid @enderror" name="nama_kos"
                             id="nama_kos" value="{{ old('nama_kos') }}">
                         @error('nama_kos')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="mb-3">
-                        <label for="link_kos" class="form-label">Link Kos</label>
-                        <input type="text" class="form-control @error('link_kos') is-invalid @enderror" name="link_kos"
-                            id="link_kos" value="{{ old('link_kos') }}">
-                        @error('link_kos')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -86,6 +76,19 @@
                                 {{ $message }}
                             </div>
                         @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputFileKosPic_One" class="form-label">Gambar Kos</label>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputFileKosPic_One">Upload Gambar</label>
+                            <input type="file" class="form-control @error('inputFileKosPic_One') is-invalid @enderror"
+                                id="inputFileKosPic_One" name="inputFileKosPic_One">
+                            @error('inputFileKosPic_One')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                     </div>
                     <div class="text-end" style="width: 100%;">
                         <button type="reset" class="btn btn-secondary fw-bold text-white">

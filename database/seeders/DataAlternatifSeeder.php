@@ -19,7 +19,6 @@ class DataAlternatifSeeder extends Seeder
             [
                 'kode_alternatif' => 'A1',
                 'nama_kos' => 'Kos A',
-                'link_kos' => 'https://www.google.com/',
                 'pemilik_kos' => 'Ahmad Zainuddin',
                 'jenis_kos' => 'Putra',
                 'alamat_kos' => 'Jonggol',
@@ -30,7 +29,6 @@ class DataAlternatifSeeder extends Seeder
             [
                 'kode_alternatif' => 'A2',
                 'nama_kos' => 'Kos B',
-                'link_kos' => 'https://www.google.com/',
                 'pemilik_kos' => 'Putra Zainuddin',
                 'jenis_kos' => 'Putra',
                 'alamat_kos' => 'Jonggol',
@@ -41,7 +39,6 @@ class DataAlternatifSeeder extends Seeder
             [
                 'kode_alternatif' => 'A3',
                 'nama_kos' => 'Kos C',
-                'link_kos' => 'https://www.google.com/',
                 'pemilik_kos' => 'Samsul Zainuddin',
                 'jenis_kos' => 'Putra',
                 'alamat_kos' => 'Jonggol',
@@ -52,7 +49,6 @@ class DataAlternatifSeeder extends Seeder
             [
                 'kode_alternatif' => 'A4',
                 'nama_kos' => 'Kos D',
-                'link_kos' => 'https://www.google.com/',
                 'pemilik_kos' => 'Budi Zainuddin',
                 'jenis_kos' => 'Putra',
                 'alamat_kos' => 'Jonggol',
@@ -63,7 +59,6 @@ class DataAlternatifSeeder extends Seeder
             [
                 'kode_alternatif' => 'A5',
                 'nama_kos' => 'Kos E',
-                'link_kos' => 'https://www.google.com/',
                 'pemilik_kos' => 'Kamis Zainuddin',
                 'jenis_kos' => 'Putra',
                 'alamat_kos' => 'Jonggol',

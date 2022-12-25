@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Guest;
 
 use App\Http\Controllers\Controller;
 use App\Models\DataAlternatif;
+use App\Models\DataHistoryUser;
 use App\Models\DataKriteria;
 use App\Models\DataPenilaian;
 use App\Models\DataSubKriteria;
@@ -93,6 +94,21 @@ class KonsultasiController extends Controller
             $DetailData = [];
         }
 
+        if (count($DetailData) == 0) {
+            return back()->with('errorMessage', 'Server tidak merespons dengan baik. silahkan coba lagi');
+        } else {
+            $saveDataResult = [];
+            $saveDataResult['hasil_penilaian'] = [];
+            foreach ($DetailData as $key => $value) {
+                $saveDataResult['hasil_penilaian'][] = $this->HitunganManualSPKMore($value['id']);
+            }
+            $saveDataResult['hasil_penilaian'] = json_encode($saveDataResult['hasil_penilaian']);
+
+            $newHistoryUser = new DataHistoryUser();
+            $newHistoryUser->nama_user = $request->get('nama_lengkap');
+            $newHistoryUser->hasil_penilaian = $saveDataResult['hasil_penilaian'];
+            $newHistoryUser->save();
+        }
 
         $datas = [
             'titlePage' => 'Hasil Rekomendasi',
@@ -100,6 +116,30 @@ class KonsultasiController extends Controller
         ];
 
         return view('guest.pages.kriteria-kos.hasil-konsultasi', $datas);
+    }
+
+    public function HitunganManualSPKMore($id_alternatif)
+    {
+        $dataAlternatif = DataAlternatif::find($id_alternatif);
+        $dataShow['id'] = $dataAlternatif->id;
+        $dataShow['nama_kos'] = $dataAlternatif->nama_kos;
+        $dataShow['jenis_kos'] = $dataAlternatif->jenis_kos;
+        $dataShow['lokasi_kos'] = $dataAlternatif->alamat_kos;
+
+        $dataPenilaian = DataPenilaian::where('id_alternatif', $id_alternatif)->get();
+
+        foreach ($dataPenilaian as $key => $value) {
+            $dataShow['data_kriteria'][$key]['nama_kriteria'] = $value->kriteria->nama_kriteria;
+            foreach (json_decode($value->kode_sub_kriteria_array) as $a => $b) {
+                $dataSubKriteria[$a] = DataSubKriteria::where([
+                    'id_kriteria' => $value->id_kriteria,
+                    'kode_sub_kriteria' => $b
+                ])->first()->toArray();
+                $dataShow['data_kriteria'][$key]['list_kriteria'][$a] = $dataSubKriteria[$a]['nama_sub_kriteria'];
+            }
+        }
+
+        return $dataShow;
     }
 
     public function NormalisasiDataKriteria()
@@ -212,10 +252,11 @@ class KonsultasiController extends Controller
 
         $datas = [
             'titlePage' => 'Detail Hasil Kriteria',
-            'detailHasil' => $dataShow
+            'detailHasil' => $dataShow,
+            'linkGambar' => [
+                'link_gambar_1' => $dataAlternatif->link_gambar_kos_1
+            ]
         ];
-
-        // dd($dataShow);
 
         return view('guest.pages.kriteria-kos.detail-konsultasi', $datas);
     }

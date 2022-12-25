@@ -17,11 +17,13 @@ class CreateDataAlternatifTable extends Migration
             $table->id();
             $table->string('kode_alternatif');
             $table->string('nama_kos');
-            $table->string('link_kos');
             $table->string('pemilik_kos');
             $table->string('jenis_kos');
             $table->text('alamat_kos');
             $table->string('whatsapp_kos');
+            $table->string('link_gambar_kos_1')->nullable();
+            $table->string('link_gambar_kos_2')->nullable();
+            $table->string('link_gambar_kos_3')->nullable();
             $table->timestamps();
         });
     }

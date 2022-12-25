@@ -2,7 +2,13 @@
 
 @section('content-wrapper')
     <div class="card-body bg-white" id="card-body-wrapper">
-        <h2 class="text-center fw-bold mb-5 mt-3">Kriteria Kos</h2>
+        <h2 class="text-center fw-bold mb-5 mt-3">Pilih Kriteria Kos</h2>
+        @if (session()->has('errorMessage'))
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ session('errorMessage') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         <div class="container py-5">
             <form action="{{ URL::to('kriteria-kos') }}" method="POST">
                 @csrf

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DataAlternatifController;
 use App\Http\Controllers\Admin\DataPenggunaController;
 use App\Http\Controllers\Admin\DataPenilaianController;
+use App\Http\Controllers\Admin\DataRiwayatKonsultasiController;
 use App\Http\Controllers\Admin\HasilPenilaianController;
 use App\Http\Controllers\Admin\KriteriaPenilaianController;
 use App\Http\Controllers\Admin\PedomanGAPController;
@@ -48,6 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('data-subkriteria', SubkriteriaPenilaianController::class);
     Route::resource('data-penilaian', DataPenilaianController::class);
     Route::resource('hasil-penilaian', HasilPenilaianController::class);
+    Route::get('data-riwayat-konsultasi', [DataRiwayatKonsultasiController::class, 'index']);
+    Route::get('data-riwayat-konsultasi/{id_riwayat_konsultasi}', [DataRiwayatKonsultasiController::class, 'showData']);
+    Route::get('data-riwayat-konsultasi/{id_alternatif}/detail', [DataRiwayatKonsultasiController::class, 'showDataDetailKonsultasi']);
     Route::get('ubah-password', [UbahPasswordController::class, 'index']);
     Route::post('ubah-password', [UbahPasswordController::class, 'store']);
     Route::get('logout', function (Request $request) {

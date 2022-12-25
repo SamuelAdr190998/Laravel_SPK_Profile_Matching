@@ -6,19 +6,19 @@ use App\Models\DataAlternatif;
 use App\Models\DataKriteria;
 use App\Models\DataPenilaian;
 use App\Models\DataSubKriteria;
+use PDO;
 
 class SPKMautAlgorithms
 {
-    protected $DataAlternatif;
-    protected $DataKriteria;
-    protected $DataSubKriteria;
     protected $DataPenilaian;
-    public function __construct()
+
+    protected function getDataPenilaian()
     {
-        $this->DataAlternatif = DataAlternatif::all();
-        $this->DataKriteria = DataKriteria::all();
-        $this->DataSubKriteria = DataSubKriteria::all();
-        $this->DataPenilaian = DataPenilaian::all();
+        if (empty($this->DataPenilaian)) {
+            $this->DataPenilaian = DataPenilaian::all();
+        }
+
+        return $this->DataPenilaian;
     }
 
     public function GenerateDataPenilaian()
@@ -26,84 +26,50 @@ class SPKMautAlgorithms
         return $this->HasilPreferensi();
     }
 
-    public function NormalisasiDataKriteria()
+    protected function NormalisasiDataKriteria()
     {
-        $GetDataKriteria = $this->DataKriteria;
-        $TotalArrKriteria = 0;
-        foreach ($GetDataKriteria as $key => $value) {
-            $TotalArrKriteria += $value->bobot_kriteria;
-        }
+        $GetDataKriteria = DataKriteria::all();
+        $TotalArrKriteria = $GetDataKriteria->sum(fn ($item) => $item->bobot_kriteria);
 
-        $RealTotalArrKriteria = [];
-        if ($TotalArrKriteria != 1) {
-            foreach ($GetDataKriteria as $key => $value) {
-                $RealTotalArrKriteria[$value->kode_kriteria] = round($value->bobot_kriteria / $TotalArrKriteria, 3);
-            }
-        } else {
-            foreach ($GetDataKriteria as $key => $value) {
-                $RealTotalArrKriteria[$value->kode_kriteria] = round($value->bobot_kriteria, 3);
-            }
-        }
-
-        return $RealTotalArrKriteria;
+        return $GetDataKriteria->mapWithKeys(fn ($item) => [
+            $item->kode_kriteria => $TotalArrKriteria == 1
+                ? round($item->bobot_kriteria, 3)
+                : round($item->bobot_kriteria / $TotalArrKriteria, 3)
+        ])->all();
     }
 
-    public function NormalisasiDataSubKriteria()
+    protected function NormalisasiDataSubKriteria()
     {
-        $GetDataPenilaian = $this->DataPenilaian;
-        $DataPenilaianArr = [];
-        foreach ($GetDataPenilaian as $key => $value) {
-            $DataPenilaianArr[$value->alternatif->kode_alternatif][$value->kriteria->kode_kriteria] = count(json_decode($value->kode_sub_kriteria_array));
-        }
+        $GetDataPenilaian = $this->getDataPenilaian();
+        $handleMap = fn ($item) => [$item->kriteria->kode_kriteria => count(json_decode($item->kode_sub_kriteria_array))];
+        $maxKriteria = $GetDataPenilaian->mapToGroups($handleMap)->map(fn ($item) => $item->max())->all();
+        $minKriteria = $GetDataPenilaian->mapToGroups($handleMap)->map(fn ($item) => $item->min())->all();
 
-        foreach ($DataPenilaianArr as $key => $value) {
-            foreach ($value as $a => $b) {
-                $GroupingByKriteria[$a][] = $value[$a];
-                $NilaiMaxArr[$a] = max($GroupingByKriteria[$a]);
-                $nilaiMinArr[$a] = min($GroupingByKriteria[$a]);
-            }
-        }
-
-        return [
-            'maxKriteria' => $NilaiMaxArr,
-            'minKriteria' => $nilaiMinArr
-        ];
+        return compact('maxKriteria', 'minKriteria');
     }
 
-    public function PerhitunganDataSPKMaut()
+    protected function PerhitunganDataSPKMaut()
     {
         $NormalisasiDataSubKriteria = $this->NormalisasiDataSubKriteria();
-        $GetDataPenilaian = $this->DataPenilaian;
-        $DataPenilaianArr = [];
-        foreach ($GetDataPenilaian as $key => $value) {
-            $DataPenilaianArr[$value->alternatif->kode_alternatif][$value->kriteria->kode_kriteria] = count(json_decode($value->kode_sub_kriteria_array));
-        }
+        $GetDataPenilaian = $this->getDataPenilaian();
 
-        $DataPerhitungan1 = [];
-        foreach ($DataPenilaianArr as $key => $value) {
-            foreach ($value as $a => $b) {
-                $DataPerhitungan1[$key][$a] = 0;
-                if (($b - $NormalisasiDataSubKriteria['minKriteria'][$a]) != 0 && ($NormalisasiDataSubKriteria['maxKriteria'][$a] - $NormalisasiDataSubKriteria['minKriteria'][$a]) != 0) {
-                    $DataPerhitungan1[$key][$a] = round(($b - $NormalisasiDataSubKriteria['minKriteria'][$a]) / ($NormalisasiDataSubKriteria['maxKriteria'][$a] - $NormalisasiDataSubKriteria['minKriteria'][$a]), 3);
-                }
-            }
-        }
-
-        return $DataPerhitungan1;
+        return $GetDataPenilaian
+            ->mapToGroups(fn ($item) => [$item->alternatif->kode_alternatif => $item])
+            ->map(fn ($item) => $item->mapWithKeys(fn ($value) => [$value->kriteria->kode_kriteria => count(json_decode($value->kode_sub_kriteria_array))]))
+            ->map(fn ($item) => $item->map(fn ($value, $key) => ($value - $NormalisasiDataSubKriteria['minKriteria'][$key]) != 0 && ($NormalisasiDataSubKriteria['maxKriteria'][$key] - $NormalisasiDataSubKriteria['minKriteria'][$key]) != 0
+                ? round(($value - $NormalisasiDataSubKriteria['minKriteria'][$key]) / ($NormalisasiDataSubKriteria['maxKriteria'][$key] - $NormalisasiDataSubKriteria['minKriteria'][$key]), 3)
+                : 0)->all())->all();
     }
 
-    public function HasilPreferensi()
+    protected function HasilPreferensi()
     {
         $HasilNormalisasiDataKriteria = $this->NormalisasiDataKriteria();
         $HasilPerhitungan = $this->PerhitunganDataSPKMaut();
-        $HasilPerferensi = [];
-        foreach ($HasilPerhitungan as $key => $value) {
-            $HasilPerferensi[$key] = 0;
-            foreach ($value as $a => $b) {
-                $HasilPerferensi[$key] += round($b * $HasilNormalisasiDataKriteria[$a], 3);
-            }
-        }
 
-        return $HasilPerferensi;
+        return collect($HasilPerhitungan)
+            ->map(fn ($item) => collect($item)
+                ->map(fn ($val, $key) => round($val * $HasilNormalisasiDataKriteria[$key], 3))
+                ->sum())
+            ->all();
     }
 }

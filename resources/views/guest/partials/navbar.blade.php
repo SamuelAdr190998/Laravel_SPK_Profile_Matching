@@ -11,7 +11,7 @@
                                 class="d-inline-block" style="height: 6.5em; width: 8em;">
                         </div>
                         <div class="col-sm-6">
-                            <p class="h2 fw-bold p-0 m-0">Simple House</p>
+                            <p class="h2 fw-bold p-0 m-0">Kos Area USU</p>
                             <p class="p-0 m-0">
                                 Website Rekomendasi Rumah Kos
                             </p>
@@ -32,8 +32,9 @@
                             <li class="nav-item">
                                 <a href="{{ URL::to('kriteria-kos') }}"
                                     class="nav-link {{ Request::segment(1) == 'kriteria-kos' ? 'active' : null }} text-white"
-                                    style="font-size: 1.2em;">Kriteria
-                                    Kos</a>
+                                    style="font-size: 1.2em;">
+                                    Pilih Kriteria Kos
+                                </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ URL::to('tentang') }}"

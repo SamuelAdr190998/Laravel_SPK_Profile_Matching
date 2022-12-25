@@ -2,20 +2,12 @@
 
 @section('content-wrapper')
     <div class="card-body bg-white" id="card-body-wrapper">
-        <h2 class="text-center fw-bold mb-5 mt-3">Detail Kriteria Kos</h2>
-        <div class="container py-5">
-            <div class="card-group mb-3">
-                <div class="card">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2020/08/25/kos-kosan-dekat-itb-jatinangor_169.jpeg?w=700&q=90"
-                        class="card-img-top" alt="...">
-                </div>
-                <div class="card">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2020/08/25/kos-kosan-dekat-itb-jatinangor_169.jpeg?w=700&q=90"
-                        class="card-img-top" alt="...">
-                </div>
-                <div class="card">
-                    <img src="https://awsimages.detik.net.id/community/media/visual/2020/08/25/kos-kosan-dekat-itb-jatinangor_169.jpeg?w=700&q=90"
-                        class="card-img-top" alt="...">
+        <h2 class="text-center fw-bold mb-5 mt-3">Detail Kos</h2>
+        <div class="container pb-5">
+            <div class="card-group">
+                <div class="container text-center mb-5">
+                    <img src="{{ $linkGambar['link_gambar_1'] != null ? URL::to($linkGambar['link_gambar_1']) : 'https://static.vecteezy.com/system/resources/previews/004/968/590/original/no-result-data-not-found-concept-illustration-flat-design-eps10-simple-and-modern-graphic-element-for-landing-page-empty-state-ui-infographic-etc-vector.jpg' }}"
+                        class="card-img-top border" alt="..." style="max-height: 20em; max-width: 20em;">
                 </div>
             </div>
             <div class="container-fluid">

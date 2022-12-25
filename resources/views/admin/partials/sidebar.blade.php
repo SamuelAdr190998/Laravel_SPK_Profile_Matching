@@ -46,6 +46,11 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-poll-h text-info"></i></div>
                     Hasil Penilaian
                 </a>
+                <a class="nav-link text-info {{ Request::segment(1) == 'data-riwayat-konsultasi' ? 'active' : '' }}"
+                    href="{{ URL::to('data-riwayat-konsultasi') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-history text-info"></i></div>
+                    Riwayat Konsultasi
+                </a>
             </div>
         </div>
     </nav>

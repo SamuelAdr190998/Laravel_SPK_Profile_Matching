@@ -35,7 +35,6 @@
                             <th class="text-center align-middle">No.</th>
                             <th class="text-center align-middle">Kode Alternatif</th>
                             <th class="text-center align-middle">Nama Kos</th>
-                            <th class="text-center align-middle">Link Kos</th>
                             <th class="text-center align-middle">Pemilik Kos</th>
                             <th class="text-center align-middle">Jenis Kos</th>
                             <th class="text-center align-middle">Alamat Kos</th>
@@ -52,7 +51,6 @@
                                 <td class="text-center align-middle">{{ $i }}</td>
                                 <td class="text-center align-middle">{{ $item->kode_alternatif }}</td>
                                 <td class="text-center align-middle">{{ $item->nama_kos }}</td>
-                                <td class="text-center align-middle">{{ $item->link_kos }}</td>
                                 <td class="text-center align-middle">{{ $item->pemilik_kos }}</td>
                                 <td class="text-center align-middle">{{ $item->jenis_kos }}</td>
                                 <td class="text-center align-middle">{{ $item->alamat_kos }}</td>

@@ -2,13 +2,13 @@
 
 @section('content-wrapper')
     <div class="card-body bg-white" id="card-body-wrapper">
-        <h2 class="text-center fw-bold mb-5 mt-3">Hasil Kriteria Kos</h2>
+        <h2 class="text-center fw-bold mb-5 mt-3">Hasil Rekomendasi</h2>
         <div class="container py-5">
             @foreach ($hasilRekomendasi as $item)
                 <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="https://awsimages.detik.net.id/community/media/visual/2020/08/25/kos-kosan-dekat-itb-jatinangor_169.jpeg?w=700&q=90"
+                            <img src="{{ $item['link_gambar_kos_1'] != null ? URL::to($item['link_gambar_kos_1']) : 'https://static.vecteezy.com/system/resources/previews/004/968/590/original/no-result-data-not-found-concept-illustration-flat-design-eps10-simple-and-modern-graphic-element-for-landing-page-empty-state-ui-infographic-etc-vector.jpg' }}"
                                 alt="" style="height: 100%; width: 100%;">
                         </div>
                         <div class="col-md-8">
