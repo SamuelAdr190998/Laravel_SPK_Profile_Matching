@@ -58,20 +58,18 @@ class DataPenilaianController extends Controller
             [
                 'data_alternatif' => 'required',
                 'kriteria_penilaian' => 'required',
-                'cboSubkriteria' => 'required'
             ],
             [
                 'data_alternatif.required' => 'Field Data Alternatif Wajib Diisi',
                 'kriteria_penilaian.required' => 'Field Kriteria Penilaian Wajib Diisi',
                 'kriteria_penilaian.unique' => 'Kriteria Penilaian Telah Ada',
-                'cboSubkriteria.accepted' => 'Field Subkriteria Penilaian Wajib Diisi'
             ]
         );
 
         $NewDataPenilaian = new DataPenilaian();
         $NewDataPenilaian->id_alternatif = $validateRequest['data_alternatif'];
         $NewDataPenilaian->id_kriteria = $validateRequest['kriteria_penilaian'];
-        $NewDataPenilaian->kode_sub_kriteria_array = json_encode($validateRequest['cboSubkriteria']);
+        $NewDataPenilaian->kode_sub_kriteria_array = isset($validateRequest['cboSubkriteria']) ? json_encode($validateRequest['cboSubkriteria']) : json_encode([]);
         $NewDataPenilaian->save();
 
         return redirect()->to('data-penilaian')->with('successMessage', 'Berhasil menambahkan data penilaian');
@@ -120,18 +118,16 @@ class DataPenilaianController extends Controller
             [
                 'data_alternatif' => 'required',
                 'kriteria_penilaian' => 'required',
-                'cboSubkriteria' => 'required'
             ],
             [
                 'data_alternatif.required' => 'Field Data Alternatif Wajib Diisi',
                 'kriteria_penilaian.required' => 'Field Kriteria Penilaian Wajib Diisi',
-                'cboSubkriteria.accepted' => 'Field Subkriteria Penilaian Wajib Diisi'
             ]
         );
 
         $dataPenilaian->id_alternatif = $validateRequest['data_alternatif'];
         $dataPenilaian->id_kriteria = $validateRequest['kriteria_penilaian'];
-        $dataPenilaian->kode_sub_kriteria_array = json_encode($validateRequest['cboSubkriteria']);
+        $dataPenilaian->kode_sub_kriteria_array = isset($validateRequest['cboSubkriteria']) ? json_encode($validateRequest['cboSubkriteria']) : json_encode([]);
         $dataPenilaian->save();
 
         return redirect()->to('data-penilaian')->with('successMessage', 'Berhasil mengubah data penilaian');

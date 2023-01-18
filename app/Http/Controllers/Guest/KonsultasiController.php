@@ -95,7 +95,7 @@ class KonsultasiController extends Controller
         }
 
         if (count($DetailData) == 0) {
-            return back()->with('errorMessage', 'Server tidak merespons dengan baik. silahkan coba lagi');
+            return back()->with('errorMessage', 'Maaf ya, kriteria kos yang kamu inginkan belum tersedia nih.');
         } else {
             $saveDataResult = [];
             $saveDataResult['hasil_penilaian'] = [];

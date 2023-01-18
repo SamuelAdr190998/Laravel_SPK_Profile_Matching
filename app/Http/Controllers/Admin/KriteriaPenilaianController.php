@@ -108,7 +108,7 @@ class KriteriaPenilaianController extends Controller
     {
         $validateRequest = $request->validate(
             [
-                'kode_kriteria_penilaian' => 'required|unique:data_kriteria,kode_kriteria,' . $kriteriaPenilaian->id,
+                'kode_kriteria_penilaian' => 'required',
                 'nama_kriteria_penilaian' => 'required',
                 'bobot_kriteria_penilaian' => 'required'
             ],

@@ -42,7 +42,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="bobot_kriteria_penilaian" class="form-label">Bobot Kriteria Penilaian</label>
-                        <input type="number" class="form-control @error('bobot_kriteria_penilaian') is-invalid @enderror"
+                        <input type="text" class="form-control @error('bobot_kriteria_penilaian') is-invalid @enderror"
                             name="bobot_kriteria_penilaian" id="bobot_kriteria_penilaian"
                             value="{{ old('bobot_kriteria_penilaian', $kriteriaPenilaian->bobot_kriteria) }}">
                         @error('bobot_kriteria_penilaian')
