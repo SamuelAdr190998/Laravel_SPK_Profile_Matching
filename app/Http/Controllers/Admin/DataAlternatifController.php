@@ -68,12 +68,9 @@ class DataAlternatifController extends Controller
 
         if ($request->file('inputFileKosPic_One')) {
             $inputFileKosPic_One = $request->file('inputFileKosPic_One');
-            $extension_one = $request->file('inputFileKosPic_One')->extension();
-
-            $inputFileKosPic_One_custom = base64_encode($request->file('inputFileKosPic_One')) . '.' . $extension_one;
-            $tujuan_uploadPic_One = public_path() . '/' . $validateRequest['kode_alternatif'];
-            $inputFileKosPic_One->move($tujuan_uploadPic_One, $inputFileKosPic_One_custom);
-            $urlSavedPicOne = url('/' . $validateRequest['kode_alternatif'] . '/' . $inputFileKosPic_One_custom);
+            $tujuan_upload = public_path() . '/bin/img';
+            $inputFileKosPic_One->move($tujuan_upload, $inputFileKosPic_One->getClientOriginalName());
+            $urlSaved = url('/bin/img/' . $inputFileKosPic_One->getClientOriginalName());
         }
 
         $newDataAlternatif = new DataAlternatif();
@@ -83,7 +80,7 @@ class DataAlternatifController extends Controller
         $newDataAlternatif->jenis_kos = $validateRequest['jenis_kos'];
         $newDataAlternatif->alamat_kos = $validateRequest['alamat_kos'];
         $newDataAlternatif->whatsapp_kos = $validateRequest['whatsapp_kos'];
-        $newDataAlternatif->link_gambar_kos_1 = $urlSavedPicOne;
+        $newDataAlternatif->link_gambar_kos_1 = $urlSaved;
         $newDataAlternatif->save();
 
         return redirect()->to('data-alternatif')->with('successMessage', 'Berhasil menambahkan data alternatif.');
@@ -157,22 +154,18 @@ class DataAlternatifController extends Controller
 
             if ($request->file('inputFileKosPic_One')) {
                 $inputFileKosPic_One = $request->file('inputFileKosPic_One');
-                $extension_one = $request->file('inputFileKosPic_One')->extension();
-
-                $inputFileKosPic_One_custom = base64_encode($request->file('inputFileKosPic_One')) . '.' . $extension_one;
-                $tujuan_uploadPic_One = public_path() . '/' . $validateRequest['kode_alternatif'];
-                $inputFileKosPic_One->move($tujuan_uploadPic_One, $inputFileKosPic_One_custom);
-                $dataAlternatif->link_gambar_kos_1 = url('/' . $validateRequest['kode_alternatif'] . '/' . $inputFileKosPic_One_custom);
+                $tujuan_upload = public_path() . '/bin/img';
+                $inputFileKosPic_One->move($tujuan_upload, $inputFileKosPic_One->getClientOriginalName());
+                $urlSaved = url('/bin/img/' . $inputFileKosPic_One->getClientOriginalName());
+                $dataAlternatif->link_gambar_kos_1 = $urlSaved;
             }
         } else {
             if ($request->file('inputFileKosPic_One')) {
                 $inputFileKosPic_One = $request->file('inputFileKosPic_One');
-                $extension_one = $request->file('inputFileKosPic_One')->extension();
-
-                $inputFileKosPic_One_custom = base64_encode($request->file('inputFileKosPic_One')) . '.' . $extension_one;
-                $tujuan_uploadPic_One = public_path() . '/' . $validateRequest['kode_alternatif'];
-                $inputFileKosPic_One->move($tujuan_uploadPic_One, $inputFileKosPic_One_custom);
-                $dataAlternatif->link_gambar_kos_1 = url('/' . $validateRequest['kode_alternatif'] . '/' . $inputFileKosPic_One_custom);
+                $tujuan_upload = public_path() . '/bin/img';
+                $inputFileKosPic_One->move($tujuan_upload, $inputFileKosPic_One->getClientOriginalName());
+                $urlSaved = url('/bin/img/' . $inputFileKosPic_One->getClientOriginalName());
+                $dataAlternatif->link_gambar_kos_1 = $urlSaved;
             }
         }
 

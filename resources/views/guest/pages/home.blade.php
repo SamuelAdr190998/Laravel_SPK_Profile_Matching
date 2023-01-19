@@ -20,10 +20,6 @@
                             cari dan didesain sedemikian rupa agar kamu mudah menggunakannya.
                         </p>
                     </div>
-                    <div class="col-sm-6 d-flex justify-content-center">
-                        <img class="img-fluid bg-success bg-gradient rounded"
-                            src="{{ URL::to('library/simpletemp/img/Untitled design.png') }}" alt="home-img" width="350">
-                    </div>
                 </div>
             </div>
         </div>
