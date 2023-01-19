@@ -68,9 +68,9 @@ class DataAlternatifController extends Controller
 
         if ($request->file('inputFileKosPic_One')) {
             $inputFileKosPic_One = $request->file('inputFileKosPic_One');
-            $tujuan_upload = public_path() . '/bin/img';
+            $tujuan_upload = getcwd();
             $inputFileKosPic_One->move($tujuan_upload, $inputFileKosPic_One->getClientOriginalName());
-            $urlSaved = url('/bin/img/' . $inputFileKosPic_One->getClientOriginalName());
+            $urlSaved = env('APP_URL') . '/' . $inputFileKosPic_One->getClientOriginalName();
         }
 
         $newDataAlternatif = new DataAlternatif();
@@ -150,21 +150,25 @@ class DataAlternatifController extends Controller
         $dataAlternatif->whatsapp_kos = $validateRequest['whatsapp_kos'];
 
         if ($dataAlternatif->link_gambar_kos_1 != null) {
-            unlink(public_path(explode(env('APP_URL'), $dataAlternatif->link_gambar_kos_1)[1]));
+            $array = explode("/", $dataAlternatif->link_gambar_kos_1);
+            end($array);
+            $lastKey = key($array);
+            $fileName = $array[$lastKey];
+            unlink(getcwd() . '/' . $fileName);
 
             if ($request->file('inputFileKosPic_One')) {
                 $inputFileKosPic_One = $request->file('inputFileKosPic_One');
-                $tujuan_upload = public_path() . '/bin/img';
+                $tujuan_upload = getcwd();
                 $inputFileKosPic_One->move($tujuan_upload, $inputFileKosPic_One->getClientOriginalName());
-                $urlSaved = url('/bin/img/' . $inputFileKosPic_One->getClientOriginalName());
+                $urlSaved = env('APP_URL') . '/' . $inputFileKosPic_One->getClientOriginalName();
                 $dataAlternatif->link_gambar_kos_1 = $urlSaved;
             }
         } else {
             if ($request->file('inputFileKosPic_One')) {
                 $inputFileKosPic_One = $request->file('inputFileKosPic_One');
-                $tujuan_upload = public_path() . '/bin/img';
+                $tujuan_upload = getcwd();
                 $inputFileKosPic_One->move($tujuan_upload, $inputFileKosPic_One->getClientOriginalName());
-                $urlSaved = url('/bin/img/' . $inputFileKosPic_One->getClientOriginalName());
+                $urlSaved = env('APP_URL') . '/' . $inputFileKosPic_One->getClientOriginalName();
                 $dataAlternatif->link_gambar_kos_1 = $urlSaved;
             }
         }
@@ -183,9 +187,11 @@ class DataAlternatifController extends Controller
     public function destroy(DataAlternatif $dataAlternatif)
     {
         if ($dataAlternatif->link_gambar_kos_1 != null) {
-            if (file_exists(public_path(explode(env('APP_URL'), $dataAlternatif->link_gambar_kos_1)[1]))) {
-                unlink(public_path(explode(env('APP_URL'), $dataAlternatif->link_gambar_kos_1)[1]));
-            }
+            $array = explode("/", $dataAlternatif->link_gambar_kos_1);
+            end($array);
+            $lastKey = key($array);
+            $fileName = $array[$lastKey];
+            unlink(getcwd() . '/' . $fileName);
         }
 
         try {
