@@ -36,6 +36,7 @@
                             <th class="text-center align-middle">Kriteria Penilaian</th>
                             <th class="text-center align-middle">Kode Subkriteria Penilaian</th>
                             <th class="text-center align-middle">Nama Subkriteria Penilaian</th>
+                            <th class="text-center align-middle">Bobot Subkriteria Penilaian</th>
                             <th class="text-center align-middle"></th>
                         </tr>
                     </thead>
@@ -51,6 +52,7 @@
                                 </td>
                                 <td class="text-center align-middle">{{ $item->kode_sub_kriteria }}</td>
                                 <td class="text-center align-middle">{{ $item->nama_sub_kriteria }}</td>
+                                <td class="text-center align-middle">{{ $item->bobot_sub_kriteria }}</td>
                                 <td class="text-center align-middle">
                                     <a href="{{ URL::to('data-subkriteria/' . $item->id . '/edit') }}"
                                         class="btn btn-warning text-white">

@@ -51,13 +51,15 @@ class SubkriteriaPenilaianController extends Controller
             [
                 'kriteria_penilaian' => 'required',
                 'kode_subkriteria_penilaian' => 'required|unique:data_sub_kriteria,kode_sub_kriteria',
-                'nama_subkriteria_penilaian' => 'required'
+                'nama_subkriteria_penilaian' => 'required',
+                'bobot_subkriteria_penilaian' => 'required'
             ],
             [
                 'kriteria_penilaian.required' => 'Field Kriteria Penilaian Wajib Diisi',
                 'kode_subkriteria_penilaian.required' => 'Field Kode Subkriteria Penilaian Wajib Diisi',
                 'kode_subkriteria_penilaian.unique' => 'Kode Subkriteria Penilaian ' . $request->get('kode_subkriteria_penilaian') . ' Telah Ada',
-                'nama_subkriteria_penilaian.required' => 'Field Nama Subkriteria Penilaian Wajib Diisi'
+                'nama_subkriteria_penilaian.required' => 'Field Nama Subkriteria Penilaian Wajib Diisi',
+                'bobot_subkriteria_penilaian.required' => 'Field Bobot Subkriteria Penilaian Wajib Diisi'
             ]
         );
 
@@ -65,6 +67,7 @@ class SubkriteriaPenilaianController extends Controller
         $NewSubkriteriaPenilaian->id_kriteria = $validateRequest['kriteria_penilaian'];
         $NewSubkriteriaPenilaian->kode_sub_kriteria = $validateRequest['kode_subkriteria_penilaian'];
         $NewSubkriteriaPenilaian->nama_sub_kriteria = $validateRequest['nama_subkriteria_penilaian'];
+        $NewSubkriteriaPenilaian->bobot_sub_kriteria = $validateRequest['bobot_subkriteria_penilaian'];
         $NewSubkriteriaPenilaian->save();
 
         return redirect()->to('data-subkriteria')->with('successMessage', 'Berhasil menambahkan subkriteria penilaian');
@@ -115,19 +118,22 @@ class SubkriteriaPenilaianController extends Controller
             [
                 'kriteria_penilaian' => 'required',
                 'kode_subkriteria_penilaian' => 'required|unique:data_sub_kriteria,kode_sub_kriteria,' . $subkriteriaPenilaian->id,
-                'nama_subkriteria_penilaian' => 'required'
+                'nama_subkriteria_penilaian' => 'required',
+                'bobot_subkriteria_penilaian' => 'required'
             ],
             [
                 'kriteria_penilaian.required' => 'Field Kriteria Penilaian Wajib Diisi',
                 'kode_subkriteria_penilaian.required' => 'Field Kode Subkriteria Penilaian Wajib Diisi',
                 'kode_subkriteria_penilaian.unique' => 'Kode Subkriteria Penilaian ' . $request->get('kode_subkriteria_penilaian') . ' Sudah Ada',
-                'nama_subkriteria_penilaian.required' => 'Field Nama Subkriteria Penilaian Wajib Diisi'
+                'nama_subkriteria_penilaian.required' => 'Field Nama Subkriteria Penilaian Wajib Diisi',
+                'bobot_subkriteria_penilaian.required' => 'Field Bobot Subkriteria Penilaian Wajib Diisi'
             ]
         );
 
         $subkriteriaPenilaian->id_kriteria = $validateRequest['kriteria_penilaian'];
         $subkriteriaPenilaian->kode_sub_kriteria = $validateRequest['kode_subkriteria_penilaian'];
         $subkriteriaPenilaian->nama_sub_kriteria = $validateRequest['nama_subkriteria_penilaian'];
+        $subkriteriaPenilaian->bobot_sub_kriteria = $validateRequest['bobot_sub_kriteria'];
         $subkriteriaPenilaian->save();
 
         return redirect()->to('data-subkriteria')->with('successMessage', 'Berhasil mengubah subkriteria penilaian');

@@ -41,7 +41,15 @@ class SPKMautAlgorithms
     protected function NormalisasiDataSubKriteria()
     {
         $GetDataPenilaian = $this->getDataPenilaian();
-        $handleMap = fn ($item) => [$item->kriteria->kode_kriteria => count(json_decode($item->kode_sub_kriteria_array))];
+
+        foreach ($GetDataPenilaian as $key => $value) {
+            foreach (json_decode($GetDataPenilaian[$key]['kode_sub_kriteria_array']) as $keySubK => $valSubK) {
+                $valueSubK[$key][$keySubK] = DataSubKriteria::where('kode_sub_kriteria', $valSubK)->first()->toArray()['bobot_sub_kriteria'];
+            }
+            $GetDataPenilaian[$key]['kode_sub_kriteria_array'] = array_sum($valueSubK[$key]);
+        }
+
+        $handleMap = fn ($item) => [$item->kriteria->kode_kriteria => $item->kode_sub_kriteria_array];
         $maxKriteria = $GetDataPenilaian->mapToGroups($handleMap)->map(fn ($item) => $item->max())->all();
         $minKriteria = $GetDataPenilaian->mapToGroups($handleMap)->map(fn ($item) => $item->min())->all();
 
@@ -55,7 +63,7 @@ class SPKMautAlgorithms
 
         return $GetDataPenilaian
             ->mapToGroups(fn ($item) => [$item->alternatif->kode_alternatif => $item])
-            ->map(fn ($item) => $item->mapWithKeys(fn ($value) => [$value->kriteria->kode_kriteria => count(json_decode($value->kode_sub_kriteria_array))]))
+            ->map(fn ($item) => $item->mapWithKeys(fn ($value) => [$value->kriteria->kode_kriteria => $value->kode_sub_kriteria_array]))
             ->map(fn ($item) => $item->map(fn ($value, $key) => ($value - $NormalisasiDataSubKriteria['minKriteria'][$key]) != 0 && ($NormalisasiDataSubKriteria['maxKriteria'][$key] - $NormalisasiDataSubKriteria['minKriteria'][$key]) != 0
                 ? round(($value - $NormalisasiDataSubKriteria['minKriteria'][$key]) / ($NormalisasiDataSubKriteria['maxKriteria'][$key] - $NormalisasiDataSubKriteria['minKriteria'][$key]), 3)
                 : 0)->all())->all();

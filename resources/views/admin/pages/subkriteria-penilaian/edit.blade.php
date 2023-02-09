@@ -63,6 +63,18 @@
                             </div>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label for="bobot_subkriteria_penilaian" class="form-label">Bobot Subkriteria Penilaian</label>
+                        <input type="text"
+                            class="form-control @error('bobot_subkriteria_penilaian') is-invalid @enderror"
+                            name="bobot_subkriteria_penilaian" id="bobot_subkriteria_penilaian"
+                            value="{{ old('bobot_subkriteria_penilaian', $subkriteriaPenilaian->bobot_sub_kriteria) }}">
+                        @error('bobot_subkriteria_penilaian')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                     <div class="text-end" style="width: 100%;">
                         <button type="reset" class="btn btn-secondary fw-bold text-white">
                             <i class="fas fa-ban me-1"></i>

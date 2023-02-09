@@ -20,6 +20,7 @@ class CreateDataSubKriteriaTable extends Migration
                 ->onDelete('cascade');
             $table->string('kode_sub_kriteria');
             $table->string('nama_sub_kriteria');
+            $table->string('bobot_sub_kriteria');
             $table->timestamps();
         });
     }
